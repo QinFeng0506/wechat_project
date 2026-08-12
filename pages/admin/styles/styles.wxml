@@ -1,0 +1,39 @@
+<!-- 款式管理 — 美甲款式列表管理 -->
+<view class="page container">
+  <!-- 新增按钮 -->
+  <view class="btn-primary mb-md" bindtap="onAdd">
+    <text>＋ 新增款式</text>
+  </view>
+
+  <!-- 款式列表 -->
+  <view wx:if="{{styles.length > 0}}">
+    <view class="style-item card flex-row" wx:for="{{styles}}" wx:key="id">
+      <!-- 缩略图 -->
+      <image class="style-thumb" src="{{item.coverImage}}" mode="aspectFill" />
+
+      <!-- 信息区 -->
+      <view class="style-info flex-1">
+        <text class="text-md text-bold text-ellipsis">{{item.name}}</text>
+        <text class="text-xs text-muted mt-xs block">{{item.category === 'nail' ? '美甲' : item.category === 'lash' ? '美睫' : '护理'}} · {{item.subCategory || ''}}</text>
+        <text class="price text-md mt-xs">¥{{item.price}}</text>
+      </view>
+
+      <!-- 操作按钮 -->
+      <view class="style-actions flex-col">
+        <view class="btn-sm btn-outline" bindtap="onEdit" data-id="{{item.id}}">
+          <text class="text-xs">编辑</text>
+        </view>
+        <view class="btn-sm btn-outline mt-xs" style="border-color:#E07B7B;color:#E07B7B;"
+              bindtap="onDelete" data-id="{{item.id}}">
+          <text class="text-xs">删除</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{styles.length === 0}}">
+    <text class="empty-icon">📸</text>
+    <text class="empty-text">暂无款式数据</text>
+  </view>
+</view>

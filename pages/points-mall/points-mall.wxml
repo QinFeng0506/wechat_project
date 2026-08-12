@@ -1,0 +1,29 @@
+<!-- 积分商城 -->
+<view class="page">
+  <view class="mall-header flex-between p-md">
+    <text class="text-lg text-bold">积分商城</text>
+    <text class="text-sm">我的积分：<text class="text-primary-color text-bold">{{pointsBalance}}</text></text>
+  </view>
+  <!-- 分类Tab -->
+  <scroll-view class="mall-tabs" scroll-x>
+    <view class="mall-tab {{activeTab==='all'?'tab-active':''}}" bindtap="onTab" data-tab="all">全部</view>
+    <view class="mall-tab {{activeTab==='service'?'tab-active':''}}" bindtap="onTab" data-tab="service">护理项目</view>
+    <view class="mall-tab {{activeTab==='voucher'?'tab-active':''}}" bindtap="onTab" data-tab="voucher">代金券</view>
+    <view class="mall-tab {{activeTab==='gift'?'tab-active':''}}" bindtap="onTab" data-tab="gift">礼品</view>
+  </scroll-view>
+  <!-- 商品网格 -->
+  <view class="goods-grid" wx:if="{{displayGoods.length}}">
+    <view class="goods-card" wx:for="{{displayGoods}}" wx:key="_id" bindtap="onExchange" data-item="{{item}}">
+      <image class="goods-img" src="{{item.image}}" mode="aspectFill"/>
+      <view class="goods-info">
+        <text class="goods-name text-ellipsis">{{item.name}}</text>
+        <view class="flex-between mt-xs">
+          <text class="price text-lg">{{item.points}}积分</text>
+          <text class="text-xs text-muted" wx:if="{{item.originalPrice}}">价值¥{{item.originalPrice}}</text>
+        </view>
+        <text class="text-xs text-muted" wx:if="{{item.stock>0}}">剩余{{item.stock}}件</text>
+      </view>
+    </view>
+  </view>
+  <view class="empty-state" wx:if="{{!displayGoods.length}}"><text class="empty-icon">🎁</text><text class="empty-text">暂无商品</text></view>
+</view>

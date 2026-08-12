@@ -1,0 +1,118 @@
+/**
+ * 预约成功页样式
+ */
+
+.page {
+  min-height: 100vh;
+  padding: 0 var(--spacing-md);
+}
+
+/* ===== 成功头部 ===== */
+.success-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-xl) 0 var(--spacing-lg);
+}
+
+.success-circle {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: var(--radius-round);
+  background: linear-gradient(135deg, #D4A0A0, #C4A882);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--spacing-md);
+  animation: successPulse 0.6s ease-out;
+}
+
+@keyframes successPulse {
+  0% { transform: scale(0.5); opacity: 0; }
+  70% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.success-icon {
+  font-size: 64rpx;
+  color: #fff;
+  font-weight: 700;
+}
+
+.success-title {
+  font-size: var(--font-xxl);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.success-desc {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+}
+
+/* ===== 详情卡片 ===== */
+.detail-card {
+  margin-bottom: var(--spacing-sm);
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12rpx 0;
+  border-bottom: 1rpx solid var(--border);
+}
+
+.detail-row:last-of-type {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  margin-right: var(--spacing-md);
+}
+
+.detail-value {
+  text-align: right;
+  color: var(--text-primary);
+}
+
+.detail-total {
+  padding-top: var(--spacing-sm);
+  border-top: 1rpx solid var(--border);
+}
+
+/* ===== 温馨提示 ===== */
+.tips-card {
+  margin-bottom: var(--spacing-md);
+}
+
+.tips-title {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: var(--spacing-sm);
+}
+
+.tips-text {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  line-height: 1.8;
+  display: block;
+}
+
+/* ===== 操作按钮 ===== */
+.action-buttons {
+  padding: 0 0 var(--spacing-xl);
+}
+
+.action-buttons .btn-primary {
+  height: 88rpx;
+}
+
+.action-buttons .btn-outline {
+  height: 88rpx;
+}

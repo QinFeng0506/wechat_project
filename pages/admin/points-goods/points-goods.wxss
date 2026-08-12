@@ -1,0 +1,24 @@
+/**
+ * 积分商品管理页样式
+ */
+
+/* 商品列表项 */
+.goods-item {
+  display: flex;
+  align-items: flex-start;
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+.goods-thumb {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: var(--radius-md);
+  margin-right: var(--spacing-md);
+  flex-shrink: 0;
+  background: var(--bg-muted);
+}
+
+.block {
+  display: block;
+}

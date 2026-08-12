@@ -1,0 +1,84 @@
+/**
+ * 预约管理页样式
+ */
+
+.page {
+  min-height: 100vh;
+}
+
+/* ===== 状态 Tab（复用 my-bookings 样式） ===== */
+.status-tabs {
+  display: flex;
+  background: var(--bg-white);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: 1rpx solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.status-tab {
+  display: flex;
+  align-items: center;
+  padding: 10rpx 22rpx;
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  background: var(--bg-muted);
+  border-radius: var(--radius-lg);
+  margin-right: var(--spacing-sm);
+  transition: all 0.2s;
+}
+
+.status-tab:last-child {
+  margin-right: 0;
+}
+
+.status-active {
+  background: var(--primary);
+  color: var(--text-white);
+  font-weight: 500;
+}
+
+.tab-count {
+  margin-left: 6rpx;
+  font-size: var(--font-xs);
+}
+
+/* ===== 预约卡片 ===== */
+.booking-list {
+  padding: var(--spacing-md);
+}
+
+.booking-card {
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+.booking-header {
+  margin-bottom: var(--spacing-xs);
+}
+
+.status-label {
+  padding: 4rpx 16rpx;
+  border-radius: var(--radius-sm);
+}
+
+.booking-customer {
+  color: var(--text-primary);
+}
+
+.booking-footer {
+  padding-top: var(--spacing-sm);
+  border-top: 1rpx solid var(--border);
+}
+
+.booking-footer .btn-sm {
+  height: 56rpx;
+  padding: 0 var(--spacing-md);
+  font-size: var(--font-xs);
+  min-width: 130rpx;
+}
+
+.booking-footer .btn-primary.btn-sm {
+  background: #7EBF8E;
+}

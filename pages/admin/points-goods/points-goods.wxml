@@ -1,0 +1,45 @@
+<!-- 积分商品管理 — 积分商城商品列表 -->
+<view class="page container">
+  <!-- 新增按钮 -->
+  <view class="btn-primary mb-md" bindtap="onAdd">
+    <text>＋ 新增商品</text>
+  </view>
+
+  <!-- 商品列表 -->
+  <view wx:if="{{goods.length > 0}}">
+    <view class="goods-item card flex-row" wx:for="{{goods}}" wx:key="_id">
+      <!-- 商品图片 -->
+      <image class="goods-thumb" src="{{item.image}}" mode="aspectFill" />
+
+      <!-- 信息区 -->
+      <view class="flex-1" style="min-width:0;">
+        <view class="flex-between">
+          <text class="text-md text-bold text-ellipsis" style="max-width:280rpx;">{{item.name}}</text>
+          <!-- 启用/禁用切换 -->
+          <switch checked="{{item.isActive}}" bindchange="onToggleActive" data-id="{{item._id}}" color="#D4A0A0" />
+        </view>
+        <text class="text-xs text-muted mt-xs block">{{item.type === 'service' ? '服务' : item.type === 'voucher' ? '代金券' : '礼品'}}</text>
+        <view class="flex-row flex-between mt-xs">
+          <text class="price text-md">{{item.points}}积分</text>
+          <text class="text-xs text-muted">已兑{{item.exchangedCount || 0}}次</text>
+        </view>
+        <!-- 操作按钮 -->
+        <view class="flex-row mt-xs" style="gap:12rpx;">
+          <view class="btn-sm btn-outline" bindtap="onEdit" data-id="{{item._id}}">
+            <text class="text-xs">编辑</text>
+          </view>
+          <view class="btn-sm btn-outline" style="border-color:#E07B7B;color:#E07B7B;"
+                bindtap="onDelete" data-id="{{item._id}}">
+            <text class="text-xs">删除</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{goods.length === 0}}">
+    <text class="empty-icon">🎁</text>
+    <text class="empty-text">暂无积分商品</text>
+  </view>
+</view>

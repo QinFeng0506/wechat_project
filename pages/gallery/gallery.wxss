@@ -1,0 +1,24 @@
+/** 款式图库 — 纯美甲版 */
+.page{min-height:100vh;background:var(--bg-page)}
+.search-bar{padding:var(--spacing-sm) var(--spacing-md);background:var(--bg-white)}
+.search-input-box{display:flex;align-items:center;background:var(--bg-muted);border-radius:var(--radius-lg);padding:14rpx var(--spacing-md)}
+.search-icon{font-size:var(--font-md);margin-right:var(--spacing-sm)}
+.search-placeholder{font-size:var(--font-sm);color:var(--text-muted)}
+.search-active-bar{display:flex;align-items:center;padding:var(--spacing-sm) var(--spacing-md);background:var(--bg-white)}
+.search-input{flex:1;background:var(--bg-muted);border-radius:var(--radius-lg);padding:14rpx var(--spacing-md);font-size:var(--font-md)}
+/* 分类Tab */
+.sub-tabs{background:var(--bg-white);white-space:nowrap;padding:var(--spacing-sm) var(--spacing-md);border-bottom:1rpx solid var(--border)}
+.sub-tab-item{display:inline-block;padding:14rpx 28rpx;font-size:var(--font-sm);color:var(--text-secondary);border-radius:var(--radius-lg);margin-right:var(--spacing-sm);background:var(--bg-muted)}
+.sub-tab-active{color:#fff;background:var(--primary);font-weight:500}
+/* 瀑布流 */
+.waterfall{display:flex;padding:var(--spacing-sm) var(--spacing-sm) 0;gap:var(--spacing-sm)}
+.waterfall-col{flex:1;display:flex;flex-direction:column;gap:var(--spacing-sm)}
+.style-card{background:var(--bg-white);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-card)}
+.card-img-wrap{position:relative;width:100%}
+.card-img{width:100%;display:block}
+.card-tags{position:absolute;top:var(--spacing-sm);left:var(--spacing-sm)}
+.card-tag{font-size:20rpx;padding:2rpx 10rpx}
+.favorite-btn{position:absolute;top:var(--spacing-sm);right:var(--spacing-sm);width:52rpx;height:52rpx;background:rgba(255,255,255,.85);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28rpx}
+.card-info{padding:var(--spacing-sm)}
+.card-name{font-size:var(--font-sm);color:var(--text-primary);margin-bottom:6rpx;display:block}
+.card-bottom{display:flex;align-items:center;justify-content:space-between}

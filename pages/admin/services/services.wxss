@@ -1,0 +1,29 @@
+/**
+ * 项目管理页样式
+ */
+
+/* 分类标题 */
+.category-header {
+  padding: 0 4rpx;
+}
+
+.category-icon {
+  font-size: 36rpx;
+  margin-right: 10rpx;
+}
+
+/* 服务项目卡片 */
+.service-item {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+.block {
+  display: block;
+}
+
+.ml-sm {
+  margin-left: 8rpx;
+}

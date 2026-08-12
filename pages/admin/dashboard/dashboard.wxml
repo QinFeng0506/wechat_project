@@ -1,0 +1,19 @@
+<!-- 管理后台首页 — 店铺管理中心 -->
+<view class="page container">
+  <!-- 欢迎头 -->
+  <view class="welcome-header">
+    <text class="welcome-icon">💅</text>
+    <text class="welcome-title text-xxl text-bold">店铺管理中心</text>
+    <text class="welcome-sub text-sm text-secondary">悦指间美甲 · 后台管理</text>
+  </view>
+
+  <!-- 功能卡片网格 -->
+  <view class="card-grid">
+    <view class="admin-card card flex-center flex-col"
+          wx:for="{{menuItems}}" wx:key="id"
+          bindtap="onNavTap" data-url="{{item.url}}">
+      <text class="card-icon">{{item.icon}}</text>
+      <text class="card-name text-md text-bold">{{item.name}}</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,43 @@
+<!-- DIY编辑器 -->
+<view class="page">
+  <!-- 手模预览 -->
+  <view class="preview-area flex-center">
+    <view class="hand-model" style="background:{{skinColors[skinTone].bg}}">
+      <text class="skin-label" wx:if="{{!selectedFinger && selectedFinger!==0}}">选择肤色和颜色\n开始搭配吧～</text>
+      <view class="fingers">
+        <view class="finger {{selectedFinger===i?'finger-active':''}}" wx:for="{{fingers}}" wx:key="*this"
+              bindtap="onSelectFinger" data-index="{{index}}" style="background:{{nails[index] || '#FFE0E0'}}">
+          <text class="finger-num">{{index+1}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 操作区 -->
+  <view class="controls">
+    <!-- 肤色选择 -->
+    <text class="ctrl-label">肤色</text>
+    <scroll-view scroll-x class="color-row">
+      <view class="skin-dot {{skinTone===i?'skin-sel':''}}" wx:for="{{skinColors}}" wx:key="bg"
+            bindtap="onSkinTone" data-i="{{index}}" style="background:{{item.bg}}"></view>
+    </scroll-view>
+    <!-- 色系Tab -->
+    <text class="ctrl-label">甲油颜色</text>
+    <scroll-view scroll-x class="palette-tabs">
+      <view class="palette-tab {{colorTab===i?'tab-sel':''}}" wx:for="{{colorTabs}}" wx:key="name"
+            bindtap="onColorTab" data-i="{{index}}">{{item.name}}</view>
+    </scroll-view>
+    <!-- 色块 -->
+    <scroll-view scroll-x class="color-row">
+      <view class="color-dot {{nails[selectedFinger]===c?'color-sel':''}}" wx:for="{{currentPalette}}" wx:key="*this"
+            bindtap="onPickColor" data-color="{{item}}" style="background:{{item}}"></view>
+    </scroll-view>
+    <!-- 快捷操作 -->
+    <view class="quick-row">
+      <view class="btn-sm btn-outline" bindtap="onAllSame">全手同色</view>
+      <view class="btn-sm btn-outline" bindtap="onReset">重置</view>
+    </view>
+    <!-- 保存 -->
+    <view class="btn-primary save-btn" bindtap="onSave">💾 保存作品</view>
+    <view class="btn-outline save-btn" bindtap="onBook">📅 预约咨询美甲师</view>
+  </view>
+</view>

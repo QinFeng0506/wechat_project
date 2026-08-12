@@ -1,0 +1,16 @@
+/**
+ * 店铺公告页样式 — 复用全局变量
+ */
+
+.page {
+  min-height: 100vh;
+  padding-top: var(--spacing-md);
+}
+
+.notice-card {
+  padding: var(--spacing-md);
+}
+
+.notice-card:active {
+  background: var(--bg-muted);
+}

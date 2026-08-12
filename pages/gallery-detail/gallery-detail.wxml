@@ -1,0 +1,104 @@
+<!-- 款式详情页 — 大图浏览 + 信息 + 收藏 + 预约入口 -->
+<view class="page" wx:if="{{style}}">
+  <!-- 图片轮播 -->
+  <swiper class="image-swiper" indicator-dots indicator-color="rgba(255,255,255,0.5)" indicator-active-color="#D4A0A0" circular>
+    <swiper-item wx:for="{{style.images}}" wx:key="*this" bindtap="onPreviewImage" data-index="{{index}}">
+      <image class="swiper-image" src="{{item}}" mode="aspectFill" />
+    </swiper-item>
+  </swiper>
+
+  <!-- 款式信息 -->
+  <view class="info-section card">
+    <view class="flex-between mb-sm">
+      <text class="text-xl text-bold">{{style.name}}</text>
+      <view class="flex-row">
+        <text class="price"><text class="price-symbol">¥</text><text class="price-value">{{style.price}}</text></text>
+      </view>
+    </view>
+
+    <view class="meta-row">
+      <view class="meta-item">
+        <text class="meta-label">时长</text>
+        <text class="meta-value">{{style.duration}}分钟</text>
+      </view>
+      <view class="meta-item">
+        <text class="meta-label">分类</text>
+        <text class="meta-value">{{categoryName}}</text>
+      </view>
+      <view class="meta-item">
+        <text class="meta-label">风格</text>
+        <text class="meta-value">{{style.subCategory}}</text>
+      </view>
+    </view>
+
+    <!-- 标签 -->
+    <view class="tag-row">
+      <text class="tag" wx:for="{{style.tags}}" wx:key="*this">{{item}}</text>
+      <text class="tag tag-hot" wx:if="{{style.isHot}}">热门</text>
+      <text class="tag tag-new" wx:if="{{style.isNew}}">新品</text>
+    </view>
+  </view>
+
+  <!-- 款式描述 -->
+  <view class="desc-section card">
+    <text class="section-label">款式描述</text>
+    <text class="desc-text">{{style.description}}</text>
+  </view>
+
+  <!-- 关联技师 -->
+  <view class="tech-section card" wx:if="{{relatedTechnicians.length > 0}}">
+    <text class="section-label">可约技师</text>
+    <scroll-view scroll-x class="tech-scroll" enable-flex>
+      <view class="tech-mini-card" wx:for="{{relatedTechnicians}}" wx:key="id" bindtap="onTechnicianTap" data-id="{{item.id}}">
+        <image class="tech-avatar-sm" src="{{item.avatar}}" mode="aspectFill" />
+        <text class="tech-name-sm">{{item.name}}</text>
+        <text class="text-xs text-secondary">{{item.title}}</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 用户评价 -->
+  <view class="review-section card">
+    <view class="flex-between mb-sm">
+      <text class="section-label" style="margin-bottom:0;">用户评价</text>
+      <text class="review-more text-sm text-primary-color" bindtap="onViewAllReviews">查看全部评价 ›</text>
+    </view>
+    <view class="review-mini-item" wx:for="{{reviews}}" wx:key="_id">
+      <view class="flex-row">
+        <image class="review-mini-avatar" src="{{item.avatar || '/images/default-avatar.png'}}" mode="aspectFill" />
+        <view class="flex-1 ml-sm">
+          <view class="flex-between">
+            <text class="text-sm text-bold">{{item.nickName || '匿名用户'}}</text>
+            <text class="text-xs">{{item.starsDisplay}}</text>
+          </view>
+          <text class="text-xs text-secondary text-line-2 mt-xs">{{item.content}}</text>
+        </view>
+      </view>
+      <view class="divider" wx:if="{{index < reviews.length - 1}}"></view>
+    </view>
+    <view class="empty-state" wx:if="{{!reviews.length}}" style="padding:40rpx 0;">
+      <text class="empty-text">暂无评价，快来第一个评价吧～</text>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar safe-bottom">
+    <view class="bottom-fav {{isFavorited ? 'bottom-fav-active' : ''}}" bindtap="onToggleFavorite">
+      <text class="fav-icon">{{isFavorited ? '❤️' : '🤍'}}</text>
+      <text class="fav-text">{{isFavorited ? '已收藏' : '收藏'}}</text>
+    </view>
+    <view class="bottom-share" bindtap="onShare">
+      <text class="share-icon">📤</text>
+      <text class="share-text">分享</text>
+    </view>
+    <view class="bottom-book btn-primary flex-1" bindtap="onBookNow">
+      <text>立即预约</text>
+    </view>
+  </view>
+</view>
+
+<!-- 未找到款式 -->
+<view class="empty-state" wx:if="{{!style}}">
+  <text class="empty-icon">🔍</text>
+  <text class="empty-text">款式未找到</text>
+</view>

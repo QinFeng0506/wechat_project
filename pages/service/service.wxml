@@ -1,0 +1,26 @@
+<!-- 服务项目 & 价格表 -->
+<view class="page">
+  <view class="service-header">
+    <text class="header-title">💅 美甲服务项目</text>
+    <text class="text-xs text-muted">共 {{items.length}} 项</text>
+  </view>
+
+  <view class="service-list">
+    <view class="service-card" wx:for="{{items}}" wx:key="id">
+      <view class="service-left">
+        <text class="service-name">{{item.name}}</text>
+        <text class="service-desc">{{item.desc}}</text>
+        <text class="meta-tag text-xs">⏱️ {{item.duration}}分钟</text>
+      </view>
+      <view class="service-right">
+        <text class="service-price"><text class="price-symbol">¥</text><text class="price-value text-lg">{{item.price}}</text></text>
+        <text class="text-xs text-muted">起</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-fixed safe-bottom">
+    <view class="bottom-hint"><text class="text-sm text-secondary">选择心仪项目，在线预约技师时间</text></view>
+    <view class="bottom-book-btn btn-primary" bindtap="onBookNow"><text>立即预约</text></view>
+  </view>
+</view>

@@ -1,0 +1,69 @@
+<!-- 预约成功页 -->
+<view class="page" wx:if="{{booking}}">
+  <!-- 成功头部 -->
+  <view class="success-header">
+    <view class="success-circle">
+      <text class="success-icon">✓</text>
+    </view>
+    <text class="success-title">预约成功</text>
+    <text class="success-desc">请等待店家确认</text>
+  </view>
+
+  <!-- 预约详情 -->
+  <view class="detail-card card">
+    <view class="detail-row">
+      <text class="detail-label">预约编号</text>
+      <text class="detail-value text-sm">{{booking.id}}</text>
+    </view>
+    <view class="detail-row">
+      <text class="detail-label">服务项目</text>
+      <text class="detail-value text-sm">{{booking.projectNames}}</text>
+    </view>
+    <view class="detail-row">
+      <text class="detail-label">技师</text>
+      <text class="detail-value text-sm">{{booking.technicianName}}</text>
+    </view>
+    <view class="detail-row">
+      <text class="detail-label">预约时间</text>
+      <text class="detail-value text-sm text-bold">{{booking.date}} {{booking.timeSlot}}</text>
+    </view>
+    <view class="detail-row">
+      <text class="detail-label">预计时长</text>
+      <text class="detail-value text-sm">{{booking.totalDuration}}分钟</text>
+    </view>
+    <view class="detail-row">
+      <text class="detail-label">备注</text>
+      <text class="detail-value text-sm">{{booking.remark || '无'}}</text>
+    </view>
+    <view class="detail-total flex-between mt-sm">
+      <text class="text-md text-bold">合计金额</text>
+      <text class="text-xl price">¥{{booking.totalAmount}}</text>
+    </view>
+  </view>
+
+  <!-- 温馨提示 -->
+  <view class="tips-card card">
+    <text class="tips-title">📌 温馨提示</text>
+    <text class="tips-text">1. 店家确认后会发送通知，请留意小程序消息</text>
+    <text class="tips-text">2. 如需取消或修改预约，请提前2小时联系店家</text>
+    <text class="tips-text">3. 预约当天上午会发送到店提醒</text>
+    <text class="tips-text">4. 到店请出示预约编号</text>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-buttons">
+    <view class="btn-primary" bindtap="onViewBooking">
+      <text>查看我的预约</text>
+    </view>
+    <view class="btn-outline mt-sm" bindtap="onBackHome">
+      <text>返回首页</text>
+    </view>
+  </view>
+
+  <view class="safe-bottom" style="height: 40rpx;"></view>
+</view>
+
+<view class="empty-state" wx:if="{{!booking}}">
+  <text class="empty-icon">📋</text>
+  <text class="empty-text">预约信息未找到</text>
+</view>

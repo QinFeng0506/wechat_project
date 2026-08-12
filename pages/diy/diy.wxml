@@ -1,0 +1,31 @@
+<!-- DIY美甲首页 -->
+<view class="page">
+  <swiper class="diy-banner" indicator-dots circular autoplay interval="3000">
+    <swiper-item wx:for="{{works}}" wx:key="_id" bindtap="onWorkTap" data-id="{{item._id}}">
+      <image class="banner-img" src="{{item.previewImage || '/images/diy/hand1.png'}}" mode="aspectFill"/>
+      <text class="banner-label">{{item.name}}</text>
+    </swiper-item>
+  </swiper>
+  <view class="diy-start card flex-center" bindtap="onStartDiy">
+    <text class="start-icon">🎨</text>
+    <text class="start-text">开始DIY美甲</text>
+    <text class="text-xs text-muted">选择肤色 → 搭配颜色 → 预览效果</text>
+  </view>
+  <view class="section p-md">
+    <text class="section-title">🔥 热门模板</text>
+    <scroll-view class="template-scroll" scroll-x>
+      <view class="template-card" wx:for="{{templates}}" wx:key="id" bindtap="onUseTemplate" data-tp="{{item}}">
+        <view class="tp-preview" style="background:{{item.nails[0]}}">
+          <view class="tp-tip" wx:if="{{item.tips}}" style="background:{{item.tips[0]}}"></view>
+        </view>
+        <text class="tp-name text-xs">{{item.name}}</text>
+      </view>
+    </scroll-view>
+  </view>
+  <view class="my-works p-md" wx:if="{{works.length}}">
+    <text class="section-title">📁 我的作品 ({{works.length}})</text>
+    <scroll-view scroll-x class="works-scroll">
+      <image class="work-thumb" wx:for="{{works}}" wx:key="_id" src="{{item.previewImage || '/images/diy/hand1.png'}}" mode="aspectFill" bindtap="onWorkTap" data-id="{{item._id}}"/>
+    </scroll-view>
+  </view>
+</view>

@@ -1,0 +1,33 @@
+/**
+ * 用户评价页样式 — 复用全局变量
+ */
+
+.review-card {
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+.review-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: var(--radius-round);
+  background: var(--primary-light);
+  flex-shrink: 0;
+}
+
+.review-stars-display {
+  font-size: var(--font-sm);
+  letter-spacing: 2rpx;
+  white-space: nowrap;
+}
+
+.review-images {
+  gap: var(--spacing-xs);
+}
+
+.review-thumb {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: var(--radius-sm);
+  background: var(--bg-muted);
+}

@@ -1,0 +1,68 @@
+/**
+ * 收藏款式页样式
+ */
+
+.page {
+  min-height: 100vh;
+}
+
+/* ===== 收藏网格 ===== */
+.fav-grid {
+  display: flex;
+  padding: var(--spacing-md) var(--spacing-sm) 0;
+  gap: var(--spacing-sm);
+}
+
+.fav-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.fav-card {
+  background: var(--bg-white);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.fav-img-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.fav-img {
+  width: 100%;
+  display: block;
+}
+
+.fav-remove {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  width: 44rpx;
+  height: 44rpx;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: var(--radius-round);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remove-icon {
+  color: #fff;
+  font-size: 22rpx;
+  font-weight: 600;
+}
+
+.fav-info {
+  padding: var(--spacing-sm);
+}
+
+.fav-name {
+  font-size: var(--font-sm);
+  color: var(--text-primary);
+  margin-bottom: 6rpx;
+  display: block;
+}

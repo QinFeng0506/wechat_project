@@ -1,0 +1,48 @@
+<!-- 项目管理 — 服务项目列表管理 -->
+<view class="page container">
+  <!-- 新增按钮 -->
+  <view class="btn-primary mb-md" bindtap="onAdd">
+    <text>＋ 新增项目</text>
+  </view>
+
+  <!-- 按分类分组展示 -->
+  <view wx:if="{{categories.length > 0}}">
+    <view class="category-group" wx:for="{{categories}}" wx:key="id">
+      <!-- 分类标题 -->
+      <view class="category-header flex-row mt-md mb-sm">
+        <text class="category-icon">{{item.icon}}</text>
+        <text class="text-lg text-bold">{{item.name}}</text>
+        <text class="text-xs text-muted ml-sm">（{{item.items.length}}项）</text>
+      </view>
+
+      <!-- 该分类下的项目列表 -->
+      <view class="service-item card flex-row" wx:for="{{item.items}}" wx:key="id" wx:for-item="svc">
+        <view class="flex-1">
+          <text class="text-md text-bold">{{svc.name}}</text>
+          <view class="flex-row mt-xs">
+            <text class="price text-md">¥{{svc.price}}</text>
+            <text class="text-xs text-muted">{{svc.duration}}分钟</text>
+          </view>
+          <text class="text-xs text-muted mt-xs block">{{svc.desc}}</text>
+        </view>
+
+        <!-- 操作 -->
+        <view class="flex-col" style="gap:12rpx;">
+          <view class="btn-sm btn-outline" bindtap="onEdit" data-id="{{svc.id}}" data-cat-id="{{item.id}}">
+            <text class="text-xs">编辑</text>
+          </view>
+          <view class="btn-sm btn-outline" style="border-color:#E07B7B;color:#E07B7B;"
+                bindtap="onDelete" data-id="{{svc.id}}" data-cat-id="{{item.id}}">
+            <text class="text-xs">删除</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{categories.length === 0}}">
+    <text class="empty-icon">📋</text>
+    <text class="empty-text">暂无服务项目</text>
+  </view>
+</view>

@@ -1,0 +1,170 @@
+<!-- 在线预约页 — 分步选择 -->
+<view class="page">
+  <!-- 步骤指示器 -->
+  <view class="steps-bar">
+    <view class="step {{currentStep >= 1 ? 'step-done' : ''}} {{currentStep === 1 ? 'step-current' : ''}}">
+      <view class="step-num">1</view>
+      <text class="step-label">选择项目</text>
+    </view>
+    <view class="step-line {{currentStep >= 2 ? 'line-done' : ''}}"></view>
+    <view class="step {{currentStep >= 2 ? 'step-done' : ''}} {{currentStep === 2 ? 'step-current' : ''}}">
+      <view class="step-num">2</view>
+      <text class="step-label">选择技师</text>
+    </view>
+    <view class="step-line {{currentStep >= 3 ? 'line-done' : ''}}"></view>
+    <view class="step {{currentStep >= 3 ? 'step-done' : ''}} {{currentStep === 3 ? 'step-current' : ''}}">
+      <view class="step-num">3</view>
+      <text class="step-label">确认时间</text>
+    </view>
+  </view>
+
+  <!-- ===== Step 1: 选择服务项目 ===== -->
+  <view class="step-content" wx:if="{{currentStep === 1}}">
+    <text class="step-title">选择服务项目（可多选）</text>
+
+    <view class="project-group" wx:for="{{serviceCategories}}" wx:key="id">
+      <view class="project-group-title">
+        <text>{{item.icon}} {{item.name}}</text>
+      </view>
+      <view class="project-item {{utils.isSelected(selectedProjects, pItem.id) ? 'project-selected' : ''}}"
+            wx:for="{{item.items}}" wx:for-item="pItem" wx:key="id"
+            bindtap="onToggleProject" data-project="{{pItem}}">
+        <view class="project-info">
+          <text class="project-name">{{pItem.name}}</text>
+          <text class="text-xs text-secondary">{{pItem.desc}}</text>
+        </view>
+        <view class="project-right">
+          <text class="project-price price">¥{{pItem.price}}</text>
+          <text class="text-xs text-muted">{{pItem.duration}}min</text>
+          <view class="checkbox-icon {{utils.isSelected(selectedProjects, pItem.id) ? 'checked' : ''}}">
+            <text wx:if="{{utils.isSelected(selectedProjects, pItem.id)}}">✓</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 已选项目摘要 -->
+    <view class="selected-summary" wx:if="{{selectedProjects.length > 0}}">
+      <text class="summary-title">已选项目</text>
+      <view class="summary-item" wx:for="{{selectedProjects}}" wx:key="id">
+        <text class="text-sm">{{item.name}}</text>
+        <text class="text-sm price">¥{{item.price}}</text>
+      </view>
+      <view class="summary-total flex-between">
+        <text class="text-md text-bold">合计</text>
+        <text class="text-md">
+          <text class="price">¥{{totalAmount}}</text>
+          <text class="text-sm text-muted"> / {{totalDuration}}分钟</text>
+        </text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ===== Step 2: 选择技师 ===== -->
+  <view class="step-content" wx:if="{{currentStep === 2}}">
+    <text class="step-title">选择技师</text>
+
+    <view class="tech-card {{selectedTechnician && selectedTechnician.id === item.id ? 'tech-selected' : ''}}"
+          wx:for="{{technicians}}" wx:key="id"
+          bindtap="onSelectTechnician" data-tech="{{item}}">
+      <image class="tech-avatar" src="{{item.avatar}}" mode="aspectFill" />
+      <view class="tech-info">
+        <view class="flex-row">
+          <text class="tech-name">{{item.name}}</text>
+          <text class="tech-title text-xs">{{item.title}}</text>
+        </view>
+        <view class="tech-tags">
+          <text class="tag" wx:for="{{item.specialties}}" wx:for-item="spec" wx:key="*this">{{spec}}</text>
+        </view>
+        <view class="flex-row">
+          <text class="text-xs text-muted mr-sm">从业{{item.experience}}年</text>
+          <text class="text-xs text-muted">服务{{item.serviceCount}}次</text>
+        </view>
+      </view>
+      <view class="tech-check" wx:if="{{selectedTechnician && selectedTechnician.id === item.id}}">
+        <text class="tech-check-icon">✓</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ===== Step 3: 确认时间 ===== -->
+  <view class="step-content" wx:if="{{currentStep === 3}}">
+    <text class="step-title">选择日期</text>
+
+    <!-- 日期选择 -->
+    <scroll-view class="date-scroll" scroll-x enable-flex>
+      <view class="date-item {{selectedDate && selectedDate.dateStr === item.dateStr ? 'date-selected' : ''}} {{!item.available ? 'date-disabled' : ''}}"
+            wx:for="{{dateList}}" wx:key="dateStr"
+            bindtap="onSelectDate" data-date="{{item}}">
+        <text class="date-week">{{item.isToday ? '今天' : item.dayOfWeek}}</text>
+        <text class="date-num">{{item.dateFormatted}}</text>
+      </view>
+    </scroll-view>
+
+    <!-- 时段选择 -->
+    <text class="step-title mt-lg">选择时段</text>
+    <view class="time-grid">
+      <view class="time-slot {{selectedTimeSlot === item.timeSlot ? 'time-selected' : ''}} {{!item.available ? 'time-disabled' : ''}}"
+            wx:for="{{timeSlots}}" wx:key="timeSlot"
+            bindtap="onSelectTimeSlot" data-slot="{{item}}">
+        <text>{{item.timeSlot}}</text>
+        <text class="text-xs" wx:if="{{!item.available}}">{{item.reason || '已约满'}}</text>
+      </view>
+    </view>
+
+    <!-- 备注 -->
+    <view class="remark-section mt-lg">
+      <text class="step-title">备注（选填）</text>
+      <textarea class="remark-input" placeholder="如：过敏提示、款式参考图编号、特殊需求等"
+                placeholder-class="remark-placeholder"
+                value="{{remark}}"
+                bindinput="onRemarkInput"
+                maxlength="200" />
+      <text class="text-xs text-muted text-right">{{remark.length}}/200</text>
+    </view>
+
+    <!-- 订单确认摘要 -->
+    <view class="order-summary card mt-lg">
+      <text class="step-title">预约确认</text>
+      <view class="order-row">
+        <text class="text-sm text-secondary">服务项目</text>
+        <text class="text-sm">{{selectedProjectsText}}</text>
+      </view>
+      <view class="order-row">
+        <text class="text-sm text-secondary">技师</text>
+        <text class="text-sm">{{selectedTechnician.name}}</text>
+      </view>
+      <view class="order-row">
+        <text class="text-sm text-secondary">预约时间</text>
+        <text class="text-sm">{{selectedDate.dateStr}} {{selectedTimeSlot}}</text>
+      </view>
+      <view class="order-row">
+        <text class="text-sm text-secondary">预计时长</text>
+        <text class="text-sm">{{totalDuration}}分钟</text>
+      </view>
+      <view class="order-total flex-between mt-sm">
+        <text class="text-md text-bold">合计金额</text>
+        <text class="text-lg price">¥{{totalAmount}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-action safe-bottom">
+    <view class="btn-outline" wx:if="{{currentStep > 1}}" bindtap="onPrevStep">
+      <text>上一步</text>
+    </view>
+    <view class="btn-primary flex-1"
+          wx:if="{{currentStep < 3}}"
+          bindtap="onNextStep"
+          style="{{!canNext ? 'opacity:0.4;pointer-events:none;' : ''}}">
+      <text>下一步</text>
+    </view>
+    <view class="btn-primary flex-1"
+          wx:if="{{currentStep === 3}}"
+          bindtap="onSubmit"
+          style="{{!canSubmit ? 'opacity:0.4;pointer-events:none;' : ''}}">
+      <text>确认预约</text>
+    </view>
+  </view>
+</view>

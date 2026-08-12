@@ -1,0 +1,97 @@
+<!-- 首页 — 悦指间美甲 -->
+<view class="page">
+  <!-- Banner 轮播 -->
+  <swiper class="banner" indicator-dots indicator-color="rgba(255,255,255,0.5)" indicator-active-color="#D4A0A0" autoplay interval="4000" circular>
+    <swiper-item wx:for="{{banners}}" wx:key="id" bindtap="onBannerTap" data-item="{{item}}">
+      <image class="banner-image" src="{{item.image}}" mode="aspectFill" />
+      <view class="banner-title">{{item.title}}</view>
+    </swiper-item>
+  </swiper>
+
+  <!-- 公告栏 -->
+  <view class="notice-bar flex-row" wx:if="{{latestNotice}}" bindtap="onNoticeTap">
+    <text class="notice-icon">📢</text>
+    <view class="notice-scroll-wrap">
+      <text class="notice-text">{{latestNotice.title}}</text>
+    </view>
+    <text class="notice-arrow">›</text>
+  </view>
+
+  <!-- 分类入口 -->
+  <view class="category-section">
+    <view class="category-list">
+      <view class="category-item" wx:for="{{categories}}" wx:key="id" bindtap="onCategoryTap" data-item="{{item}}">
+        <view class="category-icon">{{item.icon}}</view>
+        <text class="category-name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 热门款式推荐 -->
+  <view class="section">
+    <view class="section-header">
+      <view class="section-title">
+        <text class="title-icon">🔥</text>
+        <text>热门款式</text>
+      </view>
+      <text class="section-more" bindtap="onMoreTap" data-type="hot">更多 ›</text>
+    </view>
+    <scroll-view class="hot-scroll" scroll-x enable-flex>
+      <view class="hot-card" wx:for="{{hotStyles}}" wx:key="id" bindtap="onStyleTap" data-id="{{item.id}}">
+        <image class="hot-image" src="{{item.coverImage}}" mode="aspectFill" />
+        <view class="hot-info">
+          <text class="hot-name text-ellipsis">{{item.name}}</text>
+          <view class="hot-bottom">
+            <text class="price">¥{{item.price}}</text>
+            <text class="text-xs text-muted">{{item.duration}}分钟</text>
+          </view>
+        </view>
+        <view class="hot-tag tag tag-hot" wx:if="{{item.isHot}}">热门</view>
+        <view class="hot-tag tag tag-new" wx:elif="{{item.isNew}}">新品</view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 新品上架 -->
+  <view class="section">
+    <view class="section-header">
+      <view class="section-title">
+        <text class="title-icon">✨</text>
+        <text>新品上架</text>
+      </view>
+      <text class="section-more" bindtap="onMoreTap" data-type="new">更多 ›</text>
+    </view>
+    <view class="new-grid">
+      <view class="new-card" wx:for="{{newStyles}}" wx:key="id" bindtap="onStyleTap" data-id="{{item.id}}">
+        <image class="new-image" src="{{item.coverImage}}" mode="aspectFill" />
+        <view class="new-info">
+          <text class="new-name text-ellipsis">{{item.name}}</text>
+          <view class="new-bottom">
+            <text class="price">¥{{item.price}}</text>
+            <text class="new-tag tag tag-new">新品</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 最新活动 -->
+  <view class="section" wx:if="{{activities.length > 0}}">
+    <view class="section-header">
+      <view class="section-title">
+        <text class="title-icon">🎁</text>
+        <text>最新活动</text>
+      </view>
+    </view>
+    <view class="activity-card" wx:for="{{activities}}" wx:key="id" style="background: {{item.coverColor}};">
+      <view class="activity-info">
+        <text class="activity-title">{{item.title}}</text>
+        <text class="activity-desc">{{item.desc}}</text>
+      </view>
+      <view class="activity-tag tag tag-hot">{{item.tag}}</view>
+    </view>
+  </view>
+
+  <!-- 底部安全距离 -->
+  <view class="safe-bottom" style="height: 40rpx;"></view>
+</view>

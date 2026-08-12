@@ -1,0 +1,30 @@
+<!-- 用户评价列表页 -->
+<view class="page p-md">
+  <view class="review-card card" wx:for="{{reviews}}" wx:key="_id">
+    <!-- 用户信息行 -->
+    <view class="flex-row">
+      <image class="review-avatar" src="{{item.avatar || '/images/default-avatar.png'}}" mode="aspectFill" />
+      <view class="flex-1 ml-sm">
+        <view class="flex-between">
+          <text class="text-md text-bold">{{item.nickName || '匿名用户'}}</text>
+          <text class="review-stars-display">{{item.starsDisplay}}</text>
+        </view>
+        <text class="text-xs text-muted">{{item.createTime}}</text>
+      </view>
+    </view>
+
+    <!-- 评价内容 -->
+    <text class="text-sm text-secondary mt-sm" style="display:block;line-height:1.7;">{{item.content}}</text>
+
+    <!-- 评价图片 -->
+    <view class="review-images flex-row mt-sm" wx:if="{{item.images && item.images.length}}">
+      <image class="review-thumb" wx:for="{{item.images}}" wx:for-item="img" wx:key="*this" src="{{img}}" mode="aspectFill" bindtap="onPreviewImage" data-urls="{{item.images}}" data-current="{{img}}" />
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!reviews.length}}">
+    <text class="empty-icon">💬</text>
+    <text class="empty-text">暂无评价</text>
+  </view>
+</view>

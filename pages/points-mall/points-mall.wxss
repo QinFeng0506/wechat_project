@@ -1,0 +1,10 @@
+.page{padding-bottom:40rpx}
+.mall-header{background:var(--bg-white)}
+.mall-tabs{white-space:nowrap;padding:var(--spacing-sm) var(--spacing-md);background:var(--bg-white)}
+.mall-tab{display:inline-block;padding:10rpx 24rpx;font-size:var(--font-sm);color:var(--text-secondary);background:var(--bg-muted);border-radius:var(--radius-lg);margin-right:var(--spacing-sm)}
+.tab-active{background:var(--primary);color:#fff}
+.goods-grid{display:flex;flex-wrap:wrap;padding:var(--spacing-sm) var(--spacing-sm) 0;gap:var(--spacing-sm)}
+.goods-card{width:calc(50% - 8rpx);background:var(--bg-white);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-card)}
+.goods-img{width:100%;height:300rpx}
+.goods-info{padding:var(--spacing-sm)}
+.goods-name{font-size:var(--font-sm);color:var(--text-primary);display:block;margin-bottom:4rpx}

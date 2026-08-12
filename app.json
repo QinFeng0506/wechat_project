@@ -1,0 +1,81 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/gallery/gallery",
+    "pages/gallery-detail/gallery-detail",
+    "pages/service/service",
+    "pages/booking/booking",
+    "pages/booking-success/booking-success",
+    "pages/technician/technician",
+    "pages/store/store",
+    "pages/user/user",
+    "pages/my-bookings/my-bookings",
+    "pages/my-favorites/my-favorites",
+    "pages/points/points",
+    "pages/points-mall/points-mall",
+    "pages/points-history/points-history",
+    "pages/diy/diy",
+    "pages/diy-editor/diy-editor",
+    "pages/diy-work/diy-work",
+    "pages/notice/notice",
+    "pages/reviews/reviews",
+    "pages/admin/dashboard/dashboard",
+    "pages/admin/styles/styles",
+    "pages/admin/services/services",
+    "pages/admin/bookings/bookings",
+    "pages/admin/points-goods/points-goods",
+    "pages/admin/notices/notices"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarTitleText": "悦指间美甲",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#FBF7F5"
+  },
+  "tabBar": {
+    "color": "#C4B5B5",
+    "selectedColor": "#D4A0A0",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/tabbar/home.png",
+        "selectedIconPath": "images/tabbar/home-active.png"
+      },
+      {
+        "pagePath": "pages/gallery/gallery",
+        "text": "款式图库",
+        "iconPath": "images/tabbar/gallery.png",
+        "selectedIconPath": "images/tabbar/gallery-active.png"
+      },
+      {
+        "pagePath": "pages/booking/booking",
+        "text": "在线预约",
+        "iconPath": "images/tabbar/booking.png",
+        "selectedIconPath": "images/tabbar/booking-active.png"
+      },
+      {
+        "pagePath": "pages/diy/diy",
+        "text": "DIY美甲",
+        "iconPath": "images/tabbar/diy.png",
+        "selectedIconPath": "images/tabbar/diy-active.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "images/tabbar/user.png",
+        "selectedIconPath": "images/tabbar/user-active.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "您的位置信息将用于门店导航"
+    }
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

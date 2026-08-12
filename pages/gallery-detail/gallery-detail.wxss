@@ -1,0 +1,184 @@
+/**
+ * 款式详情页样式
+ */
+
+.page {
+  padding-bottom: 140rpx;
+}
+
+/* ===== 图片轮播 ===== */
+.image-swiper {
+  width: 100%;
+  height: 680rpx;
+}
+
+.swiper-image {
+  width: 100%;
+  height: 680rpx;
+}
+
+/* ===== 信息区域 ===== */
+.info-section {
+  margin: var(--spacing-md) var(--spacing-md) var(--spacing-sm);
+}
+
+/* ===== 参数行 ===== */
+.meta-row {
+  display: flex;
+  margin: var(--spacing-sm) 0;
+}
+
+.meta-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-sm);
+  background: var(--bg-muted);
+  border-radius: var(--radius-sm);
+  margin-right: var(--spacing-xs);
+}
+
+.meta-item:last-child {
+  margin-right: 0;
+}
+
+.meta-label {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+  margin-bottom: 4rpx;
+}
+
+.meta-value {
+  font-size: var(--font-sm);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* ===== 标签行 ===== */
+.tag-row {
+  margin-top: var(--spacing-xs);
+}
+
+/* ===== 描述区域 ===== */
+.desc-section {
+  margin: 0 var(--spacing-md) var(--spacing-sm);
+}
+
+.section-label {
+  font-size: var(--font-md);
+  font-weight: 600;
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: var(--spacing-sm);
+}
+
+.desc-text {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* ===== 技师区域 ===== */
+.tech-section {
+  margin: 0 var(--spacing-md) var(--spacing-sm);
+}
+
+.tech-scroll {
+  white-space: nowrap;
+  width: 100%;
+}
+
+.tech-mini-card {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--bg-muted);
+  border-radius: var(--radius-md);
+  margin-right: var(--spacing-sm);
+  min-width: 140rpx;
+}
+
+.tech-mini-card:last-child {
+  margin-right: 0;
+}
+
+.tech-avatar-sm {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: var(--radius-round);
+  margin-bottom: var(--spacing-xs);
+  background: var(--primary-light);
+}
+
+.tech-name-sm {
+  font-size: var(--font-sm);
+  color: var(--text-primary);
+  font-weight: 500;
+  margin-bottom: 2rpx;
+}
+
+/* ===== 用户评价区域 ===== */
+.review-section {
+  margin: var(--spacing-sm) var(--spacing-md);
+}
+
+.review-more {
+  white-space: nowrap;
+}
+
+.review-mini-item {
+  margin-bottom: 0;
+}
+
+.review-mini-avatar {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: var(--radius-round);
+  background: var(--primary-light);
+  flex-shrink: 0;
+}
+
+/* ===== 底部操作栏 ===== */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  background: var(--bg-white);
+  padding: var(--spacing-sm) var(--spacing-md);
+  box-shadow: 0 -2rpx 20rpx rgba(180, 150, 150, 0.08);
+  gap: var(--spacing-sm);
+  z-index: 100;
+}
+
+.bottom-fav,
+.bottom-share {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 var(--spacing-sm);
+}
+
+.fav-icon,
+.share-icon {
+  font-size: 36rpx;
+}
+
+.fav-text,
+.share-text {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+}
+
+.bottom-fav-active .fav-text {
+  color: #E07B7B;
+}
+
+.bottom-book {
+  height: 72rpx;
+  border-radius: var(--radius-lg);
+}

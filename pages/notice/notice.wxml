@@ -1,0 +1,8 @@
+<view class="page p-md">
+  <view class="notice-card card" wx:for="{{notices}}" wx:key="_id" bindtap="onTap" data-item="{{item}}">
+    <view class="flex-between mb-sm"><text class="text-md text-bold">{{item.title}}</text><text class="tag tag-hot" wx:if="{{item.isTop}}">置顶</text></view>
+    <text class="text-sm text-secondary text-line-2">{{item.content}}</text>
+    <text class="text-xs text-muted mt-xs">{{item.createTime}}</text>
+  </view>
+  <view class="empty-state" wx:if="{{!notices.length}}"><text class="empty-icon">📢</text><text class="empty-text">暂无公告</text></view>
+</view>

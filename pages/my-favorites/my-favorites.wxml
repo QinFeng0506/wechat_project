@@ -1,0 +1,46 @@
+<!-- 收藏款式 — 心愿单 -->
+<view class="page">
+  <!-- 收藏网格 -->
+  <view class="fav-grid" wx:if="{{favoriteList.length > 0}}">
+    <view class="fav-col">
+      <view class="fav-card" wx:for="{{leftList}}" wx:key="id" bindtap="onTapStyle" data-id="{{item.id}}">
+        <view class="fav-img-wrap">
+          <image class="fav-img" src="{{item.coverImage}}" mode="widthFix" lazy-load />
+          <view class="fav-remove" catchtap="onRemoveFavorite" data-id="{{item.id}}">
+            <text class="remove-icon">✕</text>
+          </view>
+        </view>
+        <view class="fav-info">
+          <text class="fav-name text-ellipsis">{{item.name}}</text>
+          <text class="price">¥{{item.price}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="fav-col">
+      <view class="fav-card" wx:for="{{rightList}}" wx:key="id" bindtap="onTapStyle" data-id="{{item.id}}">
+        <view class="fav-img-wrap">
+          <image class="fav-img" src="{{item.coverImage}}" mode="widthFix" lazy-load />
+          <view class="fav-remove" catchtap="onRemoveFavorite" data-id="{{item.id}}">
+            <text class="remove-icon">✕</text>
+          </view>
+        </view>
+        <view class="fav-info">
+          <text class="fav-name text-ellipsis">{{item.name}}</text>
+          <text class="price">¥{{item.price}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{favoriteList.length === 0}}">
+    <text class="empty-icon">🤍</text>
+    <text class="empty-text">还没有收藏的款式</text>
+    <text class="text-xs text-muted mt-xs">去款式展示逛逛吧～</text>
+    <view class="btn-primary mt-lg" style="width: 320rpx;" bindtap="onGoGallery">
+      <text>去看看</text>
+    </view>
+  </view>
+
+  <view class="safe-bottom" style="height: 40rpx;"></view>
+</view>

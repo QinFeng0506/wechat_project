@@ -1,0 +1,17 @@
+<!-- 积分明细 -->
+<view class="page">
+  <view class="history-header p-md">
+    <text class="text-lg text-bold">积分明细</text>
+    <text class="text-sm text-secondary">当前余额：<text class="primary-color text-bold">{{pointsBalance}}</text> 积分</text>
+  </view>
+  <view class="record-list" wx:if="{{records.length}}">
+    <view class="record-item flex-between" wx:for="{{records}}" wx:key="_id">
+      <view class="flex-col">
+        <text class="text-sm">{{item.description}}</text>
+        <text class="text-xs text-muted">{{item.timeStr}}</text>
+      </view>
+      <text class="text-md {{item.amount>0?'earn':'spend'}}">{{item.amount>0?'+':''}}{{item.amount}}</text>
+    </view>
+  </view>
+  <view class="empty-state" wx:if="{{!records.length}}"><text class="empty-icon">📊</text><text class="empty-text">暂无积分记录</text></view>
+</view>

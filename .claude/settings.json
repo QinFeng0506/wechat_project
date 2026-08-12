@@ -1,0 +1,47 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node d:/wechat_project/nail-salon-miniapp/.claude/hooks/pre-commit-check.js",
+            "timeout": 30000
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(ls *)",
+      "Bash(dir *)",
+      "Bash(cat *)",
+      "Bash(node *)",
+      "Bash(python *)",
+      "Bash(npm *)",
+      "Bash(cmd *)",
+      "Bash(powershell *)",
+      "Bash(mkdir *)",
+      "Bash(rm *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(echo *)",
+      "Bash(git *)",
+      "Bash(find *)",
+      "Bash(npx *)",
+      "Bash(grep *)",
+      "Read(d:\\\\wechat_project\\\\**)",
+      "Edit(d:\\\\wechat_project\\\\**)",
+      "Write(d:\\\\wechat_project\\\\**)",
+      "Glob(d:\\\\wechat_project\\\\**)",
+      "Grep(d:\\\\wechat_project\\\\**)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\w.QYF.w\\.claude\\memory",
+      "d:\\wechat_project\\nail-salon-miniapp",
+      "d:\\wechat_project\\nail-salon-miniapp\\.claude"
+    ]
+  }
+}

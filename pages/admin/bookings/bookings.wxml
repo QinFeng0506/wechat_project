@@ -1,0 +1,76 @@
+<!-- 预约管理 — 全部预约记录管理 -->
+<view class="page">
+  <!-- 状态筛选 Tab -->
+  <view class="status-tabs">
+    <view class="status-tab {{activeStatus === item.value ? 'status-active' : ''}}"
+          wx:for="{{statusTabs}}" wx:key="value"
+          bindtap="onStatusTap" data-value="{{item.value}}">
+      <text>{{item.label}}</text>
+      <text class="tab-count" wx:if="{{item.count > 0}}">{{item.count}}</text>
+    </view>
+  </view>
+
+  <!-- 预约列表 -->
+  <view class="booking-list" wx:if="{{displayList.length > 0}}">
+    <view class="booking-card card" wx:for="{{displayList}}" wx:key="id">
+      <!-- 头部：编号 + 状态 -->
+      <view class="booking-header flex-between">
+        <text class="text-xs text-muted">编号：{{item.id}}</text>
+        <view class="status-label" style="background:{{item.statusInfo.color}}20; color:{{item.statusInfo.color}};">
+          <text class="text-xs">{{item.statusInfo.label}}</text>
+        </view>
+      </view>
+
+      <!-- 客户信息 -->
+      <view class="booking-customer mt-sm">
+        <text class="text-sm text-bold">👤 客户：{{item.customerName || '匿名用户'}}</text>
+      </view>
+
+      <!-- 项目信息 -->
+      <view class="booking-projects mt-xs">
+        <text class="text-sm">{{item.projectNames}}</text>
+      </view>
+
+      <!-- 技师 & 时间 -->
+      <view class="booking-meta flex-row mt-xs">
+        <text class="text-xs text-muted mr-md">👩‍🎨 {{item.technicianName}}</text>
+        <text class="text-xs text-muted">📅 {{item.date}} {{item.timeSlot}}</text>
+      </view>
+
+      <!-- 备注 -->
+      <view class="mt-xs" wx:if="{{item.remark}}">
+        <text class="text-xs text-muted">备注：{{item.remark}}</text>
+      </view>
+
+      <!-- 金额 & 操作按钮 -->
+      <view class="booking-footer flex-between mt-sm">
+        <text class="price text-md">¥{{item.totalAmount}}</text>
+
+        <!-- 待确认：确认/取消 -->
+        <view class="flex-row" wx:if="{{item.status === 'pending'}}">
+          <view class="btn-sm btn-outline mr-sm" bindtap="onConfirm" data-id="{{item.id}}">
+            <text class="text-xs">确认</text>
+          </view>
+          <view class="btn-sm btn-outline" style="border-color:#E07B7B;color:#E07B7B;"
+                bindtap="onCancel" data-id="{{item.id}}">
+            <text class="text-xs">取消</text>
+          </view>
+        </view>
+
+        <!-- 已确认：完成 -->
+        <view class="btn-sm btn-primary" wx:if="{{item.status === 'confirmed'}}"
+              bindtap="onComplete" data-id="{{item.id}}">
+          <text class="text-xs">标记完成</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{displayList.length === 0}}">
+    <text class="empty-icon">📅</text>
+    <text class="empty-text">暂无预约记录</text>
+  </view>
+
+  <view class="safe-bottom" style="height:40rpx;"></view>
+</view>

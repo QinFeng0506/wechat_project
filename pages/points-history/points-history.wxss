@@ -1,0 +1,7 @@
+.page{padding-bottom:40rpx}
+.history-header{background:var(--bg-white);margin-bottom:var(--spacing-sm)}
+.record-list{padding:0 var(--spacing-md)}
+.record-item{padding:var(--spacing-sm) 0;border-bottom:1rpx solid var(--border)}
+.earn{color:#7EBF8E;font-weight:600}
+.spend{color:#E07B7B;font-weight:600}
+.primary-color{color:var(--primary)}

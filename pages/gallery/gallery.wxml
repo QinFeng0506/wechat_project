@@ -1,0 +1,54 @@
+<!-- 款式图库 — 美甲分类瀑布流 -->
+<view class="page">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input-box" bindtap="onSearchFocus">
+      <text class="search-icon">🔍</text>
+      <text class="search-placeholder">搜索款式、风格、关键词</text>
+    </view>
+  </view>
+
+  <!-- 子分类 Tab -->
+  <scroll-view class="sub-tabs" scroll-x enable-flex>
+    <view class="sub-tab-item {{activeSubCategory === sub.id ? 'sub-tab-active' : ''}}"
+          wx:for="{{subCategories}}" wx:key="id"
+          bindtap="onSubTap" data-id="{{sub.id}}">{{sub.name}}</view>
+  </scroll-view>
+
+  <!-- 搜索激活 -->
+  <view class="search-active-bar" wx:if="{{isSearchMode}}">
+    <input class="search-input" placeholder="输入款式名称或标签..." value="{{searchKeyword}}" focus bindinput="onSearchInput"/>
+    <text class="text-sm text-primary-color" style="padding:0 var(--spacing-md)" bindtap="onClearSearch">取消</text>
+  </view>
+
+  <!-- 瀑布流 -->
+  <view class="waterfall" wx:if="{{displayList.length > 0}}">
+    <view class="waterfall-col">
+      <view class="style-card" wx:for="{{leftList}}" wx:key="id" bindtap="onStyleTap" data-id="{{item.id}}">
+        <view class="card-img-wrap">
+          <image class="card-img" src="{{item.coverImage}}" mode="widthFix" lazy-load/>
+          <view class="card-tags"><text class="card-tag tag tag-hot" wx:if="{{item.isHot}}">热门</text><text class="card-tag tag tag-new" wx:elif="{{item.isNew}}">新品</text></view>
+          <view class="favorite-btn {{item.isFavorited ? 'favorited' : ''}}" catchtap="onToggleFavorite" data-id="{{item.id}}"><text>{{item.isFavorited ? '❤️' : '🤍'}}</text></view>
+        </view>
+        <view class="card-info"><text class="card-name text-ellipsis">{{item.name}}</text>
+          <view class="card-bottom"><text class="price">¥{{item.price}}</text><text class="text-xs text-muted">{{item.duration}}min</text></view>
+        </view>
+      </view>
+    </view>
+    <view class="waterfall-col">
+      <view class="style-card" wx:for="{{rightList}}" wx:key="id" bindtap="onStyleTap" data-id="{{item.id}}">
+        <view class="card-img-wrap">
+          <image class="card-img" src="{{item.coverImage}}" mode="widthFix" lazy-load/>
+          <view class="card-tags"><text class="card-tag tag tag-hot" wx:if="{{item.isHot}}">热门</text><text class="card-tag tag tag-new" wx:elif="{{item.isNew}}">新品</text></view>
+          <view class="favorite-btn {{item.isFavorited ? 'favorited' : ''}}" catchtap="onToggleFavorite" data-id="{{item.id}}"><text>{{item.isFavorited ? '❤️' : '🤍'}}</text></view>
+        </view>
+        <view class="card-info"><text class="card-name text-ellipsis">{{item.name}}</text>
+          <view class="card-bottom"><text class="price">¥{{item.price}}</text><text class="text-xs text-muted">{{item.duration}}min</text></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:if="{{displayList.length === 0}}"><text class="empty-icon">📭</text><text class="empty-text">暂无相关款式</text></view>
+  <view class="safe-bottom" style="height:40rpx"></view>
+</view>

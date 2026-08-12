@@ -1,0 +1,26 @@
+# 微信开发者工具
+.wechat-devtool/
+miniprogram_npm/
+
+# 依赖
+node_modules/
+
+# 云函数（上传时用开发者工具部署）
+cloudfunctions/**/node_modules/
+
+# 临时文件
+*.log
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+
+# 环境变量（含敏感信息）
+.env
+.env.local
+.env.*.local
+
+# 云开发（开通后自动生成）
+cloudfunctions/**/node_modules/

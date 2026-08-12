@@ -1,0 +1,89 @@
+<!-- 个人中心（我的） -->
+<view class="page">
+  <!-- 用户头部 -->
+  <view class="user-header">
+    <view class="user-avatar-wrap" bindtap="onGetUserInfo">
+      <image class="user-avatar" src="{{userInfo.avatarUrl || '/images/common/default-avatar.png'}}" mode="aspectFill" />
+      <view class="avatar-badge" wx:if="{{!userInfo.nickName}}">
+        <text class="text-xs">登录</text>
+      </view>
+    </view>
+    <text class="user-name">{{userInfo.nickName || '点击登录'}}</text>
+    <text class="user-phone text-xs text-secondary" wx:if="{{phoneNumber}}">{{phoneNumber}}</text>
+  </view>
+
+  <!-- 数据概览 -->
+  <view class="stats-row">
+    <view class="stat-item" bindtap="onTapMyBookings">
+      <text class="stat-num">{{bookingCount}}</text>
+      <text class="stat-label">我的预约</text>
+    </view>
+    <view class="stat-item" bindtap="onTapMyFavorites">
+      <text class="stat-num">{{favoriteCount}}</text>
+      <text class="stat-label">收藏款式</text>
+    </view>
+    <view class="stat-item" bindtap="onTapPoints">
+      <text class="stat-num">{{pointsBalance}}</text>
+      <text class="stat-label">我的积分</text>
+    </view>
+  </view>
+
+  <!-- 功能入口列表 -->
+  <view class="menu-section">
+    <view class="menu-item" bindtap="onTapMyBookings">
+      <text class="menu-icon">📅</text>
+      <text class="menu-text">我的预约</text>
+      <view class="menu-badge" wx:if="{{pendingCount > 0}}">{{pendingCount}}</view>
+      <text class="menu-arrow">›</text>
+    </view>
+
+    <view class="menu-item" bindtap="onTapMyFavorites">
+      <text class="menu-icon">❤️</text>
+      <text class="menu-text">收藏款式</text>
+      <text class="menu-arrow">›</text>
+    </view>
+
+    <view class="menu-item" bindtap="onTapStore">
+      <text class="menu-icon">🏠</text>
+      <text class="menu-text">门店信息</text>
+      <text class="menu-arrow">›</text>
+    </view>
+
+    <view class="menu-item" bindtap="onTapTechnician">
+      <text class="menu-icon">👩‍🎨</text>
+      <text class="menu-text">技师介绍</text>
+      <text class="menu-arrow">›</text>
+    </view>
+
+    <view class="menu-item" bindtap="onTapPoints">
+      <text class="menu-icon">⭐</text>
+      <text class="menu-text">积分中心</text>
+      <text class="menu-badge" wx:if="{{pointsBalance > 0}}">{{pointsBalance}}</text>
+      <text class="menu-arrow">›</text>
+    </view>
+
+    <view class="menu-item" bindtap="onTapContact">
+      <text class="menu-icon">💬</text>
+      <text class="menu-text">联系客服</text>
+      <text class="menu-arrow">›</text>
+    </view>
+
+    <!-- 管理员入口（仅管理员可见） -->
+    <view class="menu-item admin-entry" wx:if="{{isAdmin}}" bindtap="onTapAdmin">
+      <text class="menu-icon">🔧</text>
+      <text class="menu-text">管理后台</text>
+      <text class="menu-arrow">›</text>
+    </view>
+
+    <view class="menu-item" bindtap="onTapAbout">
+      <text class="menu-icon">ℹ️</text>
+      <text class="menu-text">关于我们</text>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 底部版本号 -->
+  <view class="version-info">
+    <text class="text-xs text-muted">悦指间美甲 v1.0.0</text>
+  </view>
+</view>

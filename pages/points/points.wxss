@@ -1,0 +1,22 @@
+/* 积分中心 */
+.page{padding:0 var(--spacing-md) var(--spacing-xl)}
+.balance-card{display:flex;flex-direction:column;align-items:center;padding:var(--spacing-xl) 0;background:linear-gradient(135deg,#FBF1F1,#FFF);border-radius:var(--radius-lg);margin-top:var(--spacing-md)}
+.balance-circle{width:200rpx;height:200rpx;border-radius:50%;background:linear-gradient(135deg,#D4A0A0,#C4A882);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.balance-num{font-size:56rpx;font-weight:700;color:#fff}
+.balance-label{font-size:var(--font-xs);color:rgba(255,255,255,.85);margin-top:4rpx}
+.balance-hint{margin-top:var(--spacing-sm);font-size:var(--font-xs);color:#E07B7B}
+.sign-section{margin-top:var(--spacing-md)}
+.sign-title{font-size:var(--font-md);font-weight:600}
+.sign-week{display:flex;justify-content:space-between;margin:var(--spacing-md) 0}
+.sign-day{display:flex;flex-direction:column;align-items:center;flex:1}
+.sign-day-name{font-size:var(--font-xs);color:var(--text-muted);margin-bottom:8rpx}
+.sign-dot{width:64rpx;height:64rpx;border-radius:50%;background:var(--bg-muted);display:flex;align-items:center;justify-content:center;font-size:var(--font-xs);color:var(--text-secondary)}
+.signed-dot{background:var(--primary-light);color:var(--primary)}
+.today .sign-dot{border:2rpx solid var(--primary)}
+.sign-btn{height:80rpx;margin-top:var(--spacing-sm)}
+.rules-section{margin-top:var(--spacing-sm)}
+.section-label{font-size:var(--font-md);font-weight:600;display:block;margin-bottom:var(--spacing-sm)}
+.rule-item{padding:10rpx 0;border-bottom:1rpx solid var(--border);font-size:var(--font-sm)}
+.rule-item:last-child{border:none}
+.quick-actions{display:flex;gap:var(--spacing-sm);margin-top:var(--spacing-md)}
+.action-btn{flex:1;height:80rpx;display:flex;align-items:center;justify-content:center}

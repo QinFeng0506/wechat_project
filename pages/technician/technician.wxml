@@ -1,0 +1,58 @@
+<!-- 技师介绍页 -->
+<view class="page">
+  <!-- 技师列表 -->
+  <view class="tech-list" wx:if="{{technicians.length > 0}}">
+    <view class="tech-card {{selectedId === item.id ? 'tech-expanded' : ''}}" wx:for="{{technicians}}" wx:key="id">
+      <view class="tech-main" bindtap="onToggleDetail" data-id="{{item.id}}">
+        <image class="tech-avatar" src="{{item.avatar}}" mode="aspectFill" />
+        <view class="tech-info">
+          <view class="flex-row">
+            <text class="tech-name">{{item.name}}</text>
+            <text class="tech-title">{{item.title}}</text>
+          </view>
+          <view class="tech-rating flex-row mt-xs">
+            <text class="text-xs text-secondary mr-sm">⭐ {{item.rating}}</text>
+            <text class="text-xs text-muted">服务 {{item.serviceCount}} 次</text>
+          </view>
+          <view class="tech-tags mt-xs">
+            <text class="tag" wx:for="{{item.specialties}}" wx:for-item="spec" wx:key="*this">{{spec}}</text>
+          </view>
+        </view>
+        <view class="tech-expand-icon">
+          <text>{{selectedId === item.id ? '∧' : '∨'}}</text>
+        </view>
+      </view>
+
+      <!-- 详情展开 -->
+      <view class="tech-detail" wx:if="{{selectedId === item.id}}">
+        <view class="divider"></view>
+        <text class="detail-text">{{item.description}}</text>
+        <view class="detail-stats flex-row mt-sm">
+          <view class="stat-item">
+            <text class="stat-num">{{item.experience}}</text>
+            <text class="stat-label">从业年限</text>
+          </view>
+          <view class="stat-item">
+            <text class="stat-num">{{item.serviceCount}}</text>
+            <text class="stat-label">服务人次</text>
+          </view>
+          <view class="stat-item">
+            <text class="stat-num">{{item.rating}}</text>
+            <text class="stat-label">好评率</text>
+          </view>
+        </view>
+        <view class="btn-primary mt-md" bindtap="onBookThisTech" data-id="{{item.id}}">
+          <text>预约 {{item.name}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{technicians.length === 0}}">
+    <text class="empty-icon">👩‍🎨</text>
+    <text class="empty-text">暂无技师信息</text>
+  </view>
+
+  <view class="safe-bottom" style="height: 40rpx;"></view>
+</view>

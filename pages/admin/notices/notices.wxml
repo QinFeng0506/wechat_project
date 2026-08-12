@@ -1,0 +1,41 @@
+<!-- 公告管理 — 发布、编辑、删除公告 -->
+<view class="page container">
+  <!-- 发布公告按钮 -->
+  <view class="btn-primary mb-md" bindtap="onAdd">
+    <text>＋ 发布公告</text>
+  </view>
+
+  <!-- 公告列表 -->
+  <view wx:if="{{notices.length > 0}}">
+    <view class="notice-item card" wx:for="{{notices}}" wx:key="_id">
+      <!-- 标题行 -->
+      <view class="flex-between mb-sm">
+        <view class="flex-row flex-1" style="min-width:0;">
+          <text class="tag" wx:if="{{item.isTop}}">置顶</text>
+          <text class="text-md text-bold text-ellipsis flex-1">{{item.title}}</text>
+        </view>
+        <text class="text-xs text-muted" style="flex-shrink:0;margin-left:12rpx;">{{item.createTime}}</text>
+      </view>
+
+      <!-- 类型 & 内容摘要 -->
+      <text class="text-sm text-secondary text-line-2">{{item.content}}</text>
+
+      <!-- 操作 -->
+      <view class="flex-row mt-sm" style="gap:12rpx;">
+        <view class="btn-sm btn-outline" bindtap="onEdit" data-id="{{item._id}}">
+          <text class="text-xs">编辑</text>
+        </view>
+        <view class="btn-sm btn-outline" style="border-color:#E07B7B;color:#E07B7B;"
+              bindtap="onDelete" data-id="{{item._id}}">
+          <text class="text-xs">删除</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{notices.length === 0}}">
+    <text class="empty-icon">📢</text>
+    <text class="empty-text">暂无公告</text>
+  </view>
+</view>

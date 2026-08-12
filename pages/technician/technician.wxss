@@ -1,0 +1,106 @@
+/**
+ * 技师介绍页样式
+ */
+
+.page {
+  min-height: 100vh;
+}
+
+.tech-list {
+  padding: var(--spacing-md);
+}
+
+.tech-card {
+  background: var(--bg-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  margin-bottom: var(--spacing-sm);
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.tech-main {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md);
+}
+
+.tech-avatar {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: var(--radius-round);
+  margin-right: var(--spacing-md);
+  flex-shrink: 0;
+  background: var(--primary-light);
+}
+
+.tech-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.tech-name {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-right: var(--spacing-sm);
+}
+
+.tech-title {
+  font-size: var(--font-xs);
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 2rpx 12rpx;
+  border-radius: var(--radius-sm);
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tech-expand-icon {
+  font-size: var(--font-xl);
+  color: var(--text-muted);
+  padding: var(--spacing-sm);
+}
+
+/* ===== 详情展开 ===== */
+.tech-detail {
+  padding: 0 var(--spacing-md) var(--spacing-md);
+}
+
+.detail-text {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.detail-stats {
+  justify-content: space-around;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-sm);
+}
+
+.stat-num {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.stat-label {
+  font-size: var(--font-xs);
+  color: var(--text-muted);
+  margin-top: 4rpx;
+}
+
+.tech-detail .btn-primary {
+  height: 72rpx;
+  font-size: var(--font-md);
+}

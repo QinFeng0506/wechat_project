@@ -1,0 +1,39 @@
+/**
+ * 款式管理页样式
+ */
+
+/* 款式列表项 */
+.style-item {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md);
+}
+
+.style-thumb {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: var(--radius-md);
+  margin-right: var(--spacing-md);
+  flex-shrink: 0;
+  background: var(--bg-muted);
+}
+
+.style-info {
+  min-width: 0;
+}
+
+.block {
+  display: block;
+}
+
+.style-actions {
+  flex-shrink: 0;
+  margin-left: var(--spacing-sm);
+  gap: 12rpx;
+}
+
+.style-actions .btn-sm {
+  width: 120rpx;
+  height: 56rpx;
+  padding: 0;
+}

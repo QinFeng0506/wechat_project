@@ -1,0 +1,9 @@
+<!-- DIY作品详情 -->
+<view class="page flex-center" style="min-height:100vh;flex-direction:column" wx:if="{{work}}">
+  <image class="work-preview" src="{{work.previewImage || '/images/diy/hand1.png'}}" mode="aspectFit" style="width:500rpx;height:600rpx;border-radius:var(--radius-lg)"/>
+  <text class="text-xl text-bold mt-md">{{work.name}}</text>
+  <text class="text-xs text-muted mt-xs">创建于 {{work.createTime}}</text>
+  <view class="btn-primary" bindtap="onShareWork" style="width:400rpx;margin-top:var(--spacing-lg)">📤 分享作品</view>
+  <view class="btn-outline mt-sm" bindtap="onBook" style="width:400rpx">📅 预约咨询美甲师</view>
+</view>
+<view class="empty-state" wx:if="{{!work}}"><text class="empty-icon">🎨</text><text class="empty-text">作品未找到</text></view>

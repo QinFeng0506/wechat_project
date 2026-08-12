@@ -1,0 +1,3 @@
+.page{background:var(--bg-page);min-height:100vh}
+.notice-item{padding:var(--spacing-md)}
+.notice-title{font-weight:600}
