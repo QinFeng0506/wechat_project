@@ -2,6 +2,8 @@
  * 款式管理 — 加载、新增、编辑、删除
  */
 const cloud = require('../../../utils/cloud.js');
+const { guardAdmin } = require('../../../utils/guard.js');
+
 
 Page({
   data: {
@@ -10,6 +12,7 @@ Page({
 
   /** 每次显示时刷新列表 */
   async onShow() {
+    if (!guardAdmin()) return;
     await this.loadStyles();
   },
 
@@ -23,15 +26,15 @@ Page({
     }
   },
 
-  /** 新增款式 — 提示开发中 */
+  /** 新增款式 — 跳转编辑页 */
   onAdd() {
-    wx.showToast({ title: '功能开发中', icon: 'none', duration: 1500 });
+    wx.navigateTo({ url: '/pages/admin/style-edit/style-edit' });
   },
 
-  /** 编辑款式 — 提示开发中 */
+  /** 编辑款式 — 跳转编辑页并带上款式 id */
   onEdit(e) {
     const { id } = e.currentTarget.dataset;
-    wx.showToast({ title: '编辑功能开发中', icon: 'none', duration: 1500 });
+    wx.navigateTo({ url: '/pages/admin/style-edit/style-edit?id=' + id });
   },
 
   /** 删除款式 — 确认后调用 cloud */

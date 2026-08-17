@@ -1,15 +1,9 @@
 {
   "passed": true,
-  "totalScore": 82,
-  "securityScore": 80,
-  "commentScore": 85,
-  "standardScore": 82,
+  "totalScore": 77,
+  "securityScore": 81,
+  "commentScore": 58,
+  "standardScore": 88,
   "threshold": 75,
-  "timestamp": "2026-08-12T00:00:00.000Z",
-  "findings": {
-    "critical": 0,
-    "medium": 1,
-    "low": 0,
-    "notes": ["admin pages isAdmin check not yet implemented (known TODO)"]
-  }
+  "timestamp": "2026-08-17T13:45:34.000Z"
 }

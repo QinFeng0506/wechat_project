@@ -1,0 +1,64 @@
+<!-- 技师编辑页 — 新增/编辑表单 + 头像上传 + 位置数配置 -->
+<view class="page container">
+
+  <!-- 头像选择 -->
+  <view class="image-section">
+    <view class="avatar-picker" bindtap="onChooseAvatar">
+      <image wx:if="{{avatar}}" class="avatar-preview" src="{{avatar}}" mode="aspectFill" />
+      <view wx:else class="avatar-placeholder">
+        <text class="placeholder-icon">📷</text>
+        <text class="text-xs text-muted">点击选择头像</text>
+      </view>
+      <view class="image-loading" wx:if="{{uploading}}">
+        <text class="text-xs">图片处理中...</text>
+      </view>
+    </view>
+    <text class="text-xs text-muted">点击头像从手机相册选择，自动压缩存储</text>
+  </view>
+
+  <!-- 基本信息 -->
+  <view class="card form-card">
+    <view class="form-row">
+      <text class="form-label">姓名</text>
+      <input class="form-input" placeholder="如：小雅" value="{{name}}" bindinput="onNameInput" maxlength="10" />
+    </view>
+    <view class="form-row">
+      <text class="form-label">职称</text>
+      <input class="form-input" placeholder="如：资深美甲师" value="{{title}}" bindinput="onTitleInput" maxlength="10" />
+    </view>
+    <view class="form-row">
+      <text class="form-label">从业年限</text>
+      <input class="form-input" type="number" placeholder="如：6" value="{{experience}}" bindinput="onExpInput" />
+    </view>
+    <view class="form-row">
+      <text class="form-label">擅长项目</text>
+      <input class="form-input" placeholder="用逗号分开，如：法式，猫眼，雕花" value="{{specialties}}" bindinput="onSpecInput" maxlength="40" />
+    </view>
+    <view class="form-row no-border">
+      <text class="form-label">每时段可约位置</text>
+      <input class="form-input" type="number" placeholder="默认 3" value="{{slotCount}}" bindinput="onSlotInput" />
+    </view>
+  </view>
+
+  <!-- 介绍 & 状态 -->
+  <view class="card form-card">
+    <view class="form-row form-col">
+      <text class="form-label">技师介绍</text>
+      <textarea class="form-textarea" placeholder="介绍技师的资历、风格特点等" value="{{description}}" bindinput="onDescInput" maxlength="200" />
+      <text class="text-xs text-muted text-right">{{description.length}}/200</text>
+    </view>
+    <view class="form-row no-border">
+      <view class="flex-1">
+        <text class="form-label">✅ 可接单</text>
+        <text class="text-xs text-muted">关闭后顾客预约时看不到该技师</text>
+      </view>
+      <switch checked="{{isAvailable}}" color="#D4A0A0" bindchange="onToggleAvailable" />
+    </view>
+  </view>
+
+  <!-- 底部操作 -->
+  <view class="bottom-actions safe-bottom">
+    <view class="btn-outline" bindtap="onCancel"><text>取消</text></view>
+    <view class="btn-primary flex-1" bindtap="onSave"><text>保存</text></view>
+  </view>
+</view>

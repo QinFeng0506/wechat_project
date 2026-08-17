@@ -54,3 +54,24 @@
 .card-name {
   color: var(--text-primary);
 }
+
+/* 锁定后台 */
+.lock-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg) 0;
+}
+
+.lock-btn {
+  padding: 16rpx 64rpx;
+  border-radius: var(--radius-lg);
+  border: 1rpx solid var(--primary);
+  color: var(--primary-dark);
+  font-size: var(--font-md);
+}
+
+.lock-btn:active {
+  background: var(--primary-light);
+}

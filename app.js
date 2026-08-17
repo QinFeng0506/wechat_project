@@ -30,20 +30,15 @@ App({
     this.initPointsData();
   },
 
-  /** 云开发初始化（未开通时静默跳过） */
+  /** 云开发初始化 */
   initCloud() {
-    if (!wx.cloud) {
-      this.useLocalMode();
-      return;
-    }
-    try {
-      wx.cloud.init({ traceUser: true });
-      this.globalData.db = wx.cloud.database();
-      this.globalData.cloudReady = true;
-      this.checkAdmin();
-    } catch (e) {
-      this.useLocalMode();
-    }
+    // 当前未配置云环境，直接使用本地模式，避免云调用超时导致页面卡死
+    // 开通云开发后，取消下面注释并填入环境 ID 即可启用云端数据：
+    //   wx.cloud.init({ env: '你的云环境ID', traceUser: true });
+    //   this.globalData.db = wx.cloud.database();
+    //   this.globalData.cloudReady = true;
+    //   this.checkAdmin();
+    this.useLocalMode();
   },
 
   useLocalMode() {
@@ -79,6 +74,7 @@ App({
       if (bk) this.globalData.bookings = JSON.parse(bk);
       const ui = wx.getStorageSync('userInfo');
       if (ui) this.globalData.userInfo = JSON.parse(ui);
+      // 注意：管理员状态不落盘，只存内存 —— 小程序关闭后再打开需要重新输密码
     } catch (e) { /* ignore */ }
   },
 
@@ -148,23 +144,22 @@ App({
 
   // ===== 管理员 =====
 
-  /** 检测管理员 */
+  /** 检测管理员（云开发模式）：比对当前用户 openid 是否在管理员白名单中 */
   checkAdmin() {
-    // 本地模式：通过 storage 标记
-    const adminFlag = wx.getStorageSync('is_admin');
-    if (adminFlag) {
-      this.globalData.isAdmin = true;
-      return;
-    }
-    // 云开发模式：查询 admin_users 表
-    if (this.globalData.cloudReady) {
-      this.globalData.db.collection('admin_users')
-        .where({ role: 'admin' }).limit(1).get()
-        .then(res => {
-          this.globalData.isAdmin = res.data.length > 0;
-          wx.setStorageSync('is_admin', true);
-        }).catch(() => {});
-    }
+    if (!this.globalData.cloudReady) return;
+    // 先通过 login 云函数取当前用户 openid（相当于身份证号），
+    // 再查白名单里有没有这个号 —— 只认本人，不认"店里有没有管理员"
+    wx.cloud.callFunction({ name: 'login' })
+      .then(res => {
+        const openid = res.result && res.result.openid;
+        if (!openid) return Promise.reject(new Error('no openid'));
+        return this.globalData.db.collection('admin_users').where({ openid }).limit(1).get();
+      })
+      .then(res => {
+        // 会话内有效，不落盘（小程序关闭后再打开需重新识别）
+        this.globalData.isAdmin = res.data.length > 0;
+      })
+      .catch(() => { /* 云端识别失败时维持非管理员状态（安全默认） */ });
   },
 
   // ===== 收藏 =====

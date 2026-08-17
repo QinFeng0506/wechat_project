@@ -16,4 +16,12 @@
       <text class="card-name text-md text-bold">{{item.name}}</text>
     </view>
   </view>
+
+  <!-- 锁定后台 -->
+  <view class="lock-area">
+    <view class="lock-btn" bindtap="onLock">
+      <text>🔒 锁定后台</text>
+    </view>
+    <text class="text-xs text-muted">锁定后需重新输入管理员密码才能进入</text>
+  </view>
 </view>

@@ -24,8 +24,14 @@
     "pages/admin/services/services",
     "pages/admin/bookings/bookings",
     "pages/admin/points-goods/points-goods",
-    "pages/admin/notices/notices"
+    "pages/admin/notices/notices",
+    "pages/admin/style-edit/style-edit",
+    "pages/admin/service-edit/service-edit",
+    "pages/admin/goods-edit/goods-edit",
+    "pages/admin/technicians/technicians",
+    "pages/admin/technician-edit/technician-edit"
   ],
+  "lazyCodeLoading": "requiredComponents",
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#FFFFFF",

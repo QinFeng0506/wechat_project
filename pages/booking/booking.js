@@ -1,292 +1,219 @@
 /**
- * 在线预约页 — 多步骤选择流程
+ * 在线预约页 — 单选服务 → 选技师 → 选时间（三步流程）
  */
 
 const app = getApp();
-const { serviceCategories, technicians: techData } = require('../../utils/data.js');
+const cloud = require('../../utils/cloud.js');
 const { generateId, formatDate, getUpcomingDays, getTimeSlots } = require('../../utils/util.js');
 
 Page({
   data: {
-    /** 步骤控制 */
     currentStep: 1,
     canNext: false,
     canSubmit: false,
 
-    /** Step 1: 服务项目 */
+    // Step 1: 服务项目（带选中状态）
     serviceCategories: [],
-    selectedProjects: [],
-    totalAmount: 0,
-    totalDuration: 0,
+    selectedProject: null,
 
-    /** Step 2: 技师 */
+    // Step 2: 技师
     technicians: [],
 
-    /** Step 3: 时间 */
+    // Step 3: 时间
     dateList: [],
     timeSlots: [],
     selectedDate: null,
     selectedTimeSlot: '',
     selectedTechnician: null,
 
-    /** 备注 */
-    remark: '',
-
-    /** 文本拼接 */
-    selectedProjectsText: '',
-
-    /** WXML 工具函数 */
-    utils: {
-      isSelected: (arr, id) => arr.some(item => item.id === id)
-    }
+    remark: ''
   },
 
-  onLoad() {
-    this.initPage();
-  },
+  onLoad() { this.initPage(); },
 
   onShow() {
-    // 检查是否有预选款式（从款式详情跳转过来）
-    const cartItems = app.globalData.cartItems;
-    if (cartItems && cartItems.length > 0) {
-      this.setData({
-        selectedProjects: cartItems.map(item => ({
-          id: item.id,
-          name: item.name,
-          price: item.price,
-          duration: item.duration
-        }))
-      });
-      this.calcTotal();
+    // 刷新服务项目（管理后台可能改过价格），initPage 内部会保留已选状态
+    this.initPage();
 
-      // 清除全局暂存
+    const items = app.globalData.cartItems;
+    if (items && items.length > 0) {
+      // 预选项目（从款式详情跳来）
+      const p = items[0];
+      this.markSelected(p.id);
+      this.setData({ selectedProject: { id: p.id, name: p.name, price: p.price, duration: p.duration } });
       app.globalData.cartItems = [];
-    }
-  },
-
-  /**
-   * 初始化页面
-   */
-  initPage() {
-    const today = new Date();
-    const dateList = getUpcomingDays(7).map(d => ({
-      ...d,
-      available: true // 模拟全部可用
-    }));
-
-    // 模拟周末不可约
-    dateList.forEach(d => {
-      const day = d.date.getDay();
-      if (day === 0) d.available = false;
-    });
-
-    this.setData({
-      serviceCategories,
-      technicians: techData.filter(t => t.isAvailable),
-      dateList
-    });
-
-    // 默认选今天
-    if (dateList[0].available) {
-      this.onSelectDate({ currentTarget: { dataset: { date: dateList[0] } } });
-    }
-  },
-
-  /**
-   * 选择/取消项目 (Step 1)
-   */
-  onToggleProject(e) {
-    const { project } = e.currentTarget.dataset;
-
-    if (!project || !project.id) return;
-
-    const selected = [...this.data.selectedProjects];
-    const index = selected.findIndex(item => item.id === project.id);
-
-    if (index > -1) {
-      selected.splice(index, 1);
-    } else {
-      selected.push({
-        id: project.id,
-        name: project.name,
-        price: project.price,
-        duration: project.duration
-      });
-    }
-
-    this.setData({ selectedProjects: selected });
-    this.calcTotal();
-    this.updateCanNext();
-  },
-
-  /**
-   * 计算总价和总时长
-   */
-  calcTotal() {
-    const { selectedProjects } = this.data;
-    const totalAmount = selectedProjects.reduce((sum, item) => sum + item.price, 0);
-    const totalDuration = selectedProjects.reduce((sum, item) => sum + item.duration, 0);
-    const selectedProjectsText = selectedProjects.map(item => item.name).join('、');
-
-    this.setData({
-      totalAmount,
-      totalDuration,
-      selectedProjectsText
-    });
-  },
-
-  /**
-   * 选择技师 (Step 2)
-   */
-  onSelectTechnician(e) {
-    const { tech } = e.currentTarget.dataset;
-    this.setData({
-      selectedTechnician: tech
-    });
-    this.updateCanNext();
-  },
-
-  /**
-   * 选择日期 (Step 3)
-   */
-  onSelectDate(e) {
-    const { date } = e.currentTarget.dataset;
-    if (!date.available) return;
-
-    const timeSlots = getTimeSlots(date.date, this.data.totalDuration);
-
-    this.setData({
-      selectedDate: date,
-      timeSlots,
-      selectedTimeSlot: ''
-    });
-    this.updateCanSubmit();
-  },
-
-  /**
-   * 选择时段 (Step 3)
-   */
-  onSelectTimeSlot(e) {
-    const { slot } = e.currentTarget.dataset;
-    if (!slot.available) return;
-
-    this.setData({
-      selectedTimeSlot: slot.timeSlot
-    });
-    this.updateCanSubmit();
-  },
-
-  /**
-   * 备注输入
-   */
-  onRemarkInput(e) {
-    this.setData({ remark: e.detail.value });
-  },
-
-  /**
-   * 检查 Step 1 是否可以下一步
-   */
-  updateCanNext() {
-    const { currentStep, selectedProjects, selectedTechnician } = this.data;
-
-    if (currentStep === 1) {
-      this.setData({ canNext: selectedProjects.length > 0 });
-    } else if (currentStep === 2) {
-      this.setData({ canNext: !!selectedTechnician });
-    }
-  },
-
-  /**
-   * 检查 Step 3 是否可以提交
-   */
-  updateCanSubmit() {
-    const { selectedDate, selectedTimeSlot } = this.data;
-    this.setData({
-      canSubmit: !!selectedDate && !!selectedTimeSlot
-    });
-  },
-
-  /**
-   * 下一步
-   */
-  onNextStep() {
-    if (!this.data.canNext) return;
-
-    const nextStep = this.data.currentStep + 1;
-    this.setData({ currentStep: nextStep });
-
-    // 切换到 Step 3 时重新生成可用时段
-    if (nextStep === 3 && this.data.selectedDate) {
-      const timeSlots = getTimeSlots(this.data.selectedDate.date, this.data.totalDuration);
-      this.setData({ timeSlots, selectedTimeSlot: '' });
-      this.updateCanSubmit();
-    }
-
-    if (nextStep === 2) {
       this.updateCanNext();
     }
   },
 
-  /**
-   * 上一步
-   */
-  onPrevStep() {
-    const prevStep = this.data.currentStep - 1;
-    this.setData({ currentStep: prevStep });
+  async initPage() {
+    // 从数据层动态读取服务项目与技师（管理员改价/换头像后这里同步最新数据）
+    const keepProjectId = this.data.selectedProject ? this.data.selectedProject.id : null;
+    const keepTechId = this.data.selectedTechnician ? this.data.selectedTechnician.id : null;
+    const [catsData, techsData] = await Promise.all([cloud.getServiceCategories(), cloud.getTechnicians()]);
+    const cats = catsData.map(cat => ({
+      ...cat,
+      items: cat.items.map(item => ({ ...item, selected: item.id === keepProjectId }))
+    }));
+
+    const dateList = getUpcomingDays(7).map(d => ({ ...d, available: true }));
+    dateList.forEach(d => { if (d.date.getDay() === 0) d.available = false; });
+
+    // 恢复已选技师（用最新头像/位置数）；技师被停用或删除则清空选择
+    const techs = techsData.filter(t => t.isAvailable);
+    const selectedTechnician = keepTechId ? (techs.find(t => t.id === keepTechId) || null) : null;
+
+    this.setData({
+      serviceCategories: cats,
+      technicians: techs,
+      selectedTechnician,
+      dateList
+    });
+
+    // 恢复已选项目（用最新价格/时长）
+    if (keepProjectId) {
+      let p = null;
+      catsData.some(cat => { p = cat.items.find(i => i.id === keepProjectId); return !!p; });
+      if (p) {
+        this.setData({ selectedProject: { id: p.id, name: p.name, price: p.price, duration: p.duration } });
+        // 时长可能变了，重算时段；之前选的时段仍可用则保留
+        if (this.data.selectedDate) {
+          const prevSlot = this.data.selectedTimeSlot;
+          this.onSelectDate({ currentTarget: { dataset: { date: this.data.selectedDate } } });
+          const still = this.data.timeSlots.find(s => s.timeSlot === prevSlot && s.available);
+          if (prevSlot && still) this.setData({ selectedTimeSlot: prevSlot });
+          this.updateCanSubmit();
+        }
+      } else {
+        this.setData({ selectedProject: null });
+      }
+    }
+
+    if (!this.data.selectedDate && dateList[0].available) {
+      this.onSelectDate({ currentTarget: { dataset: { date: dateList[0] } } });
+    }
     this.updateCanNext();
   },
 
-  /**
-   * 提交预约
-   */
+  /** 单选项目 */
+  onSelectProject(e) {
+    const { project } = e.currentTarget.dataset;
+    if (!project || !project.id) return;
+
+    // 选中当前，取消其他所有
+    this.markSelected(project.id);
+    this.setData({
+      selectedProject: { id: project.id, name: project.name, price: project.price, duration: project.duration }
+    });
+    this.updateCanNext();
+  },
+
+  /** 标记选中状态到 serviceCategories */
+  markSelected(projectId) {
+    const cats = this.data.serviceCategories.map(cat => ({
+      ...cat,
+      items: cat.items.map(item => ({ ...item, selected: item.id === projectId }))
+    }));
+    this.setData({ serviceCategories: cats });
+  },
+
+  onSelectTechnician(e) {
+    const { tech } = e.currentTarget.dataset;
+    this.setData({ selectedTechnician: this.data.selectedTechnician && this.data.selectedTechnician.id === tech.id ? null : tech });
+    this.updateCanNext();
+  },
+
+  /** 计算某技师某日期的时段与剩余位置 */
+  calcTimeSlots(date, duration) {
+    const tech = this.data.selectedTechnician;
+    return getTimeSlots(date, duration, app.globalData.bookings, {
+      technicianId: tech ? tech.id : null,
+      slotCount: tech ? (tech.slotCount || 3) : 3
+    });
+  },
+
+  onSelectDate(e) {
+    const item = e.currentTarget.dataset.date;
+    if (!item || !item.available) return;
+    // dataset 传输后 Date 会变字符串，用 dateStr 重建
+    const date = new Date(item.dateStr);
+    const dur = this.data.selectedProject ? this.data.selectedProject.duration : 60;
+    this.setData({ selectedDate: { ...item, date }, timeSlots: this.calcTimeSlots(date, dur), selectedTimeSlot: '' });
+    this.updateCanSubmit();
+  },
+
+  onSelectTimeSlot(e) {
+    const { slot } = e.currentTarget.dataset;
+    if (!slot.available) return;
+    this.setData({ selectedTimeSlot: slot.timeSlot });
+    this.updateCanSubmit();
+  },
+
+  onRemarkInput(e) { this.setData({ remark: e.detail.value }); },
+
+  updateCanNext() {
+    if (this.data.currentStep === 1) this.setData({ canNext: !!this.data.selectedProject });
+    else if (this.data.currentStep === 2) this.setData({ canNext: !!this.data.selectedTechnician });
+  },
+
+  updateCanSubmit() {
+    this.setData({ canSubmit: !!this.data.selectedDate && !!this.data.selectedTimeSlot });
+  },
+
+  onNextStep() {
+    if (!this.data.canNext) return;
+    const next = this.data.currentStep + 1;
+    this.setData({ currentStep: next });
+    if (next === 3 && this.data.selectedDate) {
+      const dur = this.data.selectedProject ? this.data.selectedProject.duration : 60;
+      this.setData({ timeSlots: this.calcTimeSlots(this.data.selectedDate.date, dur), selectedTimeSlot: '' });
+      this.updateCanSubmit();
+    }
+    if (next === 2) this.updateCanNext();
+  },
+
+  onPrevStep() {
+    this.setData({ currentStep: this.data.currentStep - 1 });
+    this.updateCanNext();
+  },
+
   onSubmit() {
     if (!this.data.canSubmit) return;
+    const { selectedProject, selectedTechnician, selectedDate, selectedTimeSlot, remark } = this.data;
 
-    const { selectedProjects, selectedTechnician, selectedDate,
-            selectedTimeSlot, totalAmount, totalDuration, remark } = this.data;
-
-    // 构造预约数据
     const booking = {
       id: generateId('BK'),
       userId: 'user_001',
-      projects: selectedProjects,
-      projectNames: selectedProjects.map(p => p.name).join('、'),
+      projects: [selectedProject],
+      projectNames: selectedProject.name,
       technicianId: selectedTechnician.id,
       technicianName: selectedTechnician.name,
       technicianAvatar: selectedTechnician.avatar,
       date: selectedDate.dateStr,
       timeSlot: selectedTimeSlot,
-      totalAmount,
-      totalDuration,
-      remark,
+      totalAmount: selectedProject.price,
+      totalDuration: selectedProject.duration,
+      remark: (remark || '').slice(0, 200),
       status: 'pending',
       createTime: formatDate(new Date(), 'YYYY-MM-DD HH:mm')
     };
 
     wx.showModal({
       title: '确认预约',
-      content: `预约项目：${booking.projectNames}\n技师：${booking.technicianName}\n时间：${booking.date} ${booking.timeSlot}\n金额：¥${booking.totalAmount}`,
+      content: `项目：${booking.projectNames}\n技师：${booking.technicianName}\n时间：${booking.date} ${booking.timeSlot}\n金额：¥${booking.totalAmount}`,
       confirmText: '确认提交',
       cancelText: '再想想',
       confirmColor: '#D4A0A0',
       success: (res) => {
         if (res.confirm) {
           app.addBooking(booking);
-          wx.navigateTo({
-            url: `/pages/booking-success/booking-success?id=${booking.id}`
-          });
+          wx.navigateTo({ url: `/pages/booking-success/booking-success?id=${booking.id}` });
         }
       }
     });
   },
 
-  /**
-   * 分享
-   */
   onShareAppMessage() {
-    return {
-      title: '悦指间美甲 — 在线预约',
-      path: '/pages/booking/booking'
-    };
+    return { title: '悦指间美甲 — 在线预约', path: '/pages/booking/booking' };
   }
 });

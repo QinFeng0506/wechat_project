@@ -10,7 +10,14 @@ Page({
     selectedId: ''
   },
 
-  async onLoad(options) {
+  onLoad(options) {
+    if (options.id) {
+      this.setData({ selectedId: options.id });
+    }
+  },
+
+  /** 每次显示都刷新（管理后台换头像/改信息后返回即可见） */
+  async onShow() {
     wx.showLoading({ title: '加载中...' });
 
     try {
@@ -19,10 +26,6 @@ Page({
     } catch (e) {
       const { technicians: localTechs } = require('../../utils/data.js');
       this.setData({ technicians: localTechs });
-    }
-
-    if (options.id) {
-      this.setData({ selectedId: options.id });
     }
 
     wx.hideLoading();

@@ -20,15 +20,15 @@
 
   <!-- ===== Step 1: 选择服务项目 ===== -->
   <view class="step-content" wx:if="{{currentStep === 1}}">
-    <text class="step-title">选择服务项目（可多选）</text>
+    <text class="step-title">选择服务项目（单选）</text>
 
     <view class="project-group" wx:for="{{serviceCategories}}" wx:key="id">
       <view class="project-group-title">
         <text>{{item.icon}} {{item.name}}</text>
       </view>
-      <view class="project-item {{utils.isSelected(selectedProjects, pItem.id) ? 'project-selected' : ''}}"
+      <view class="project-item {{pItem.selected ? 'project-selected' : ''}}"
             wx:for="{{item.items}}" wx:for-item="pItem" wx:key="id"
-            bindtap="onToggleProject" data-project="{{pItem}}">
+            bindtap="onSelectProject" data-project="{{pItem}}">
         <view class="project-info">
           <text class="project-name">{{pItem.name}}</text>
           <text class="text-xs text-secondary">{{pItem.desc}}</text>
@@ -36,26 +36,19 @@
         <view class="project-right">
           <text class="project-price price">¥{{pItem.price}}</text>
           <text class="text-xs text-muted">{{pItem.duration}}min</text>
-          <view class="checkbox-icon {{utils.isSelected(selectedProjects, pItem.id) ? 'checked' : ''}}">
-            <text wx:if="{{utils.isSelected(selectedProjects, pItem.id)}}">✓</text>
+          <view class="checkbox-icon {{pItem.selected ? 'checked' : ''}}">
+            <text wx:if="{{pItem.selected}}">✓</text>
           </view>
         </view>
       </view>
     </view>
 
-    <!-- 已选项目摘要 -->
-    <view class="selected-summary" wx:if="{{selectedProjects.length > 0}}">
+    <!-- 已选项目提示 -->
+    <view class="selected-summary" wx:if="{{selectedProject}}">
       <text class="summary-title">已选项目</text>
-      <view class="summary-item" wx:for="{{selectedProjects}}" wx:key="id">
-        <text class="text-sm">{{item.name}}</text>
-        <text class="text-sm price">¥{{item.price}}</text>
-      </view>
-      <view class="summary-total flex-between">
-        <text class="text-md text-bold">合计</text>
-        <text class="text-md">
-          <text class="price">¥{{totalAmount}}</text>
-          <text class="text-sm text-muted"> / {{totalDuration}}分钟</text>
-        </text>
+      <view class="summary-item">
+        <text class="text-sm">{{selectedProject.name}}</text>
+        <text class="text-sm price">¥{{selectedProject.price}} / {{selectedProject.duration}}分钟</text>
       </view>
     </view>
   </view>
@@ -80,6 +73,9 @@
           <text class="text-xs text-muted mr-sm">从业{{item.experience}}年</text>
           <text class="text-xs text-muted">服务{{item.serviceCount}}次</text>
         </view>
+        <view class="flex-row">
+          <text class="text-xs text-muted">💺 每时段可约{{item.slotCount || 3}}个位置</text>
+        </view>
       </view>
       <view class="tech-check" wx:if="{{selectedTechnician && selectedTechnician.id === item.id}}">
         <text class="tech-check-icon">✓</text>
@@ -103,12 +99,14 @@
 
     <!-- 时段选择 -->
     <text class="step-title mt-lg">选择时段</text>
+    <text class="text-xs text-muted" wx:if="{{selectedTechnician}}">{{selectedTechnician.name}}技师每个时段最多可约{{selectedTechnician.slotCount || 3}}个位置，先约先得</text>
     <view class="time-grid">
       <view class="time-slot {{selectedTimeSlot === item.timeSlot ? 'time-selected' : ''}} {{!item.available ? 'time-disabled' : ''}}"
             wx:for="{{timeSlots}}" wx:key="timeSlot"
             bindtap="onSelectTimeSlot" data-slot="{{item}}">
         <text>{{item.timeSlot}}</text>
         <text class="text-xs" wx:if="{{!item.available}}">{{item.reason || '已约满'}}</text>
+        <text class="text-xs time-remaining" wx:if="{{item.available}}">剩{{item.remaining}}个位置</text>
       </view>
     </view>
 
@@ -128,7 +126,7 @@
       <text class="step-title">预约确认</text>
       <view class="order-row">
         <text class="text-sm text-secondary">服务项目</text>
-        <text class="text-sm">{{selectedProjectsText}}</text>
+        <text class="text-sm">{{selectedProject.name}}</text>
       </view>
       <view class="order-row">
         <text class="text-sm text-secondary">技师</text>
@@ -140,11 +138,14 @@
       </view>
       <view class="order-row">
         <text class="text-sm text-secondary">预计时长</text>
-        <text class="text-sm">{{totalDuration}}分钟</text>
+        <text class="text-sm">{{selectedProject.duration}}分钟</text>
       </view>
       <view class="order-total flex-between mt-sm">
         <text class="text-md text-bold">合计金额</text>
-        <text class="text-lg price">¥{{totalAmount}}</text>
+        <text class="text-lg price">¥{{selectedProject.price}}</text>
+      </view>
+      <view class="order-pay-tip">
+        <text>💴 预约提交后请到店付款 · 支持微信 / 支付宝 / 现金</text>
       </view>
     </view>
   </view>

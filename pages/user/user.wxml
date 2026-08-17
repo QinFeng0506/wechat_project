@@ -68,8 +68,8 @@
       <text class="menu-arrow">›</text>
     </view>
 
-    <!-- 管理员入口（仅管理员可见） -->
-    <view class="menu-item admin-entry" wx:if="{{isAdmin}}" bindtap="onTapAdmin">
+    <!-- 管理后台入口（人人可见，进后台需输密码） -->
+    <view class="menu-item admin-entry" bindtap="onTapAdmin">
       <text class="menu-icon">🔧</text>
       <text class="menu-text">管理后台</text>
       <text class="menu-arrow">›</text>
@@ -80,10 +80,22 @@
       <text class="menu-text">关于我们</text>
       <text class="menu-arrow">›</text>
     </view>
+
+    <!-- 退出登录（仅已登录时显示） -->
+    <view class="menu-item logout-entry" wx:if="{{userInfo.nickName}}" bindtap="onLogout">
+      <text class="menu-icon">🚪</text>
+      <text class="menu-text">退出登录</text>
+      <text class="menu-arrow">›</text>
+    </view>
   </view>
 
   <!-- 底部版本号 -->
   <view class="version-info">
     <text class="text-xs text-muted">悦指间美甲 v1.0.0</text>
+  </view>
+
+  <!-- 底部声明（个人展示用途） -->
+  <view class="disclaimer">
+    <text class="text-xs text-muted">本项目仅用于个人开发效果展示，不涉及任何盈利功能，无线下店铺。仅展示小程序开发的细节和内容，不作为商业用途。</text>
   </view>
 </view>

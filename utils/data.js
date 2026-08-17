@@ -44,9 +44,9 @@ const subCategories = {
 
 /** 技师（纯美甲方向） */
 const technicians = [
-  { id:'t001', name:'小雅', avatar:'/images/technicians/t1.png', title:'资深美甲师', experience:6, specialties:['法式','猫眼','3D雕花','手绘'], description:'从业6年，曾在上海高端美甲沙龙任职。擅长法式美甲和3D雕花工艺，多次获得美甲大赛奖项。对待每一位客人都十分耐心细致，会根据手型肤色量身推荐最适合的款式。', rating:4.9, serviceCount:2180, isAvailable:true },
-  { id:'t002', name:'思语', avatar:'/images/technicians/t2.png', title:'高级美甲师', experience:4, specialties:['渐变','珍珠贝壳','贴片延长','手绘'], description:'从业4年，尤其擅长渐变美甲和创意造型，手法轻柔细致，客户好评率超高。喜欢研究最新流行趋势，总能给你带来惊喜。', rating:4.8, serviceCount:1560, isAvailable:true },
-  { id:'t003', name:'灵儿', avatar:'/images/technicians/t3.png', title:'美甲师', experience:3, specialties:['纯色','腮红甲','韩系','极简风'], description:'从业3年，温柔细心。擅长韩系清新风美甲，价格亲民服务到位，非常适合追求性价比的客户和学生党。', rating:4.7, serviceCount:980, isAvailable:true }
+  { id:'t001', slotCount:3, name:'小雅', avatar:'/images/technicians/t1.png', title:'资深美甲师', experience:6, specialties:['法式','猫眼','3D雕花','手绘'], description:'从业6年，曾在上海高端美甲沙龙任职。擅长法式美甲和3D雕花工艺，多次获得美甲大赛奖项。对待每一位客人都十分耐心细致，会根据手型肤色量身推荐最适合的款式。', rating:4.9, serviceCount:2180, isAvailable:true },
+  { id:'t002', slotCount:3, name:'思语', avatar:'/images/technicians/t2.png', title:'高级美甲师', experience:4, specialties:['渐变','珍珠贝壳','贴片延长','手绘'], description:'从业4年，尤其擅长渐变美甲和创意造型，手法轻柔细致，客户好评率超高。喜欢研究最新流行趋势，总能给你带来惊喜。', rating:4.8, serviceCount:1560, isAvailable:true },
+  { id:'t003', slotCount:3, name:'灵儿', avatar:'/images/technicians/t3.png', title:'美甲师', experience:3, specialties:['纯色','腮红甲','韩系','极简风'], description:'从业3年，温柔细心。擅长韩系清新风美甲，价格亲民服务到位，非常适合追求性价比的客户和学生党。', rating:4.7, serviceCount:980, isAvailable:true }
 ];
 
 /** 服务项目（仅美甲） */

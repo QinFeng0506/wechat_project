@@ -60,12 +60,19 @@ const getUpcomingDays = (days = 7) => {
 };
 
 /**
- * 获取可选时段列表（模拟）
+ * 获取可选时段列表（按技师统计剩余位置）
+ * 每个技师在同一时间段最多可约 slotCount 个位置（默认 3），
+ * 已约满则不可选，未约满显示剩余位置数。
  * @param {Date} date - 选择的日期
  * @param {number} requiredDuration - 所需时长（分钟）
- * @returns {Array<{timeSlot: string, available: boolean, reason?: string}>}
+ * @param {Array} existingBookings - 已有预约列表
+ * @param {Object} opts - { technicianId, slotCount } 技师 ID 及其每时段可约位置数
+ * @returns {Array<{timeSlot: string, available: boolean, reason?: string, remaining?: number}>}
  */
-const getTimeSlots = (date, requiredDuration = 60) => {
+const getTimeSlots = (date, requiredDuration = 60, existingBookings = [], opts = {}) => {
+  const d = date instanceof Date ? date : new Date(date);
+  if (isNaN(d.getTime())) return [];
+
   const allSlots = [
     { timeSlot: '09:00-10:30', start: '09:00', end: '10:30', available: true },
     { timeSlot: '10:30-12:00', start: '10:30', end: '12:00', available: true },
@@ -77,20 +84,28 @@ const getTimeSlots = (date, requiredDuration = 60) => {
     { timeSlot: '19:30-21:00', start: '19:30', end: '21:00', available: true }
   ];
 
-  // 模拟：周末下午时段约满
-  const day = date.getDay();
-  const isWeekend = day === 0 || day === 6;
+  const dateStr = formatDate(d);
+  const slotCount = opts.slotCount || 3;
+
+  // 统计该技师当天各时段已约数量（排除已取消的预约）
+  const bookedCounts = {};
+  existingBookings.forEach(b => {
+    if (b.date === dateStr && b.status !== 'cancelled' && (!opts.technicianId || b.technicianId === opts.technicianId)) {
+      bookedCounts[b.timeSlot] = (bookedCounts[b.timeSlot] || 0) + 1;
+    }
+  });
 
   return allSlots.map(slot => {
-    if (isWeekend && (slot.start === '13:30' || slot.start === '15:00')) {
-      return { ...slot, available: false, reason: '已约满' };
+    const booked = bookedCounts[slot.timeSlot] || 0;
+    const remaining = slotCount - booked;
+    if (remaining <= 0) {
+      return { ...slot, available: false, reason: '已约满', remaining: 0 };
     }
-    // 如果所选项目时长超过时段长度，标记不可用
     const slotHours = parseFloat(slot.end) - parseFloat(slot.start);
     if (requiredDuration > slotHours * 60 + 30) {
       return { ...slot, available: false, reason: '时长不足' };
     }
-    return slot;
+    return { ...slot, available: true, remaining };
   });
 };
 

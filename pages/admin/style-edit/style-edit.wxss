@@ -1,0 +1,154 @@
+/**
+ * 款式编辑页样式
+ */
+
+.page {
+  padding-bottom: 180rpx;
+}
+
+/* ===== 图片选择 ===== */
+.image-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-lg) 0 var(--spacing-sm);
+}
+
+.image-picker {
+  position: relative;
+  width: 320rpx;
+  height: 320rpx;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-muted);
+  border: 2rpx dashed var(--primary-light);
+  margin-bottom: var(--spacing-sm);
+}
+
+.cover-preview {
+  width: 100%;
+  height: 100%;
+}
+
+.image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+}
+
+.placeholder-icon {
+  font-size: 64rpx;
+}
+
+.image-loading {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  text-align: center;
+  padding: 8rpx 0;
+}
+
+/* ===== 表单 ===== */
+.form-card {
+  padding: 0 var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md) 0;
+  border-bottom: 1rpx solid var(--border);
+}
+
+.form-row.no-border {
+  border-bottom: none;
+}
+
+.form-col {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.form-label {
+  font-size: var(--font-md);
+  color: var(--text-primary);
+  font-weight: 500;
+  flex-shrink: 0;
+  margin-right: var(--spacing-md);
+}
+
+.form-col .form-label {
+  margin-bottom: var(--spacing-sm);
+}
+
+.form-input {
+  flex: 1;
+  text-align: right;
+  font-size: var(--font-md);
+  color: var(--text-primary);
+  min-height: 48rpx;
+}
+
+.form-picker {
+  flex: 1;
+  text-align: right;
+}
+
+.picker-value {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: var(--font-md);
+  color: var(--text-primary);
+  min-height: 48rpx;
+}
+
+.picker-arrow {
+  margin-left: var(--spacing-xs);
+  color: var(--text-muted);
+  font-size: var(--font-xs);
+}
+
+.form-textarea {
+  width: 100%;
+  min-height: 160rpx;
+  background: var(--bg-muted);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-sm);
+  font-size: var(--font-sm);
+  box-sizing: border-box;
+  margin-bottom: var(--spacing-xs);
+}
+
+/* ===== 底部操作 ===== */
+.bottom-actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: var(--spacing-sm);
+  background: var(--bg-white);
+  padding: var(--spacing-sm) var(--spacing-md);
+  padding-bottom: calc(var(--spacing-sm) + constant(safe-area-inset-bottom));
+  padding-bottom: calc(var(--spacing-sm) + env(safe-area-inset-bottom));
+  box-shadow: 0 -2rpx 20rpx rgba(180, 150, 150, 0.08);
+}
+
+.bottom-actions .btn-outline {
+  width: 200rpx;
+  height: 80rpx;
+}
+
+.bottom-actions .btn-primary {
+  height: 80rpx;
+}

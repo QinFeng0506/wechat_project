@@ -130,3 +130,10 @@
   text-align: center;
   padding: var(--spacing-xl) 0;
 }
+
+/* ===== 底部声明 ===== */
+.disclaimer {
+  padding: 0 var(--spacing-xl) var(--spacing-xl);
+  text-align: center;
+  line-height: 1.8;
+}

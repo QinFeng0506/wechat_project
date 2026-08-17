@@ -2,6 +2,8 @@
  * 预约管理 — 全部预约、状态筛选、操作确认
  */
 const cloud = require('../../../utils/cloud.js');
+const { guardAdmin } = require('../../../utils/guard.js');
+
 const { getBookingStatus } = require('../../../utils/util.js');
 
 Page({
@@ -19,6 +21,7 @@ Page({
   },
 
   async onShow() {
+    if (!guardAdmin()) return;
     await this.loadBookings();
   },
 

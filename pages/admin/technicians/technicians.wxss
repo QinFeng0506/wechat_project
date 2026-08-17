@@ -1,0 +1,56 @@
+/**
+ * 技师管理页样式
+ */
+
+/* 技师列表项 */
+.tech-item {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+.tech-avatar {
+  width: 110rpx;
+  height: 110rpx;
+  border-radius: var(--radius-round);
+  margin-right: var(--spacing-md);
+  flex-shrink: 0;
+  background: var(--bg-muted);
+}
+
+.tech-info {
+  min-width: 0;
+}
+
+.tech-title {
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 2rpx 10rpx;
+  border-radius: var(--radius-sm);
+  margin-left: var(--spacing-xs);
+}
+
+.tech-off {
+  color: var(--danger);
+  background: rgba(212, 120, 110, 0.1);
+  padding: 2rpx 10rpx;
+  border-radius: var(--radius-sm);
+  margin-left: var(--spacing-xs);
+}
+
+.block {
+  display: block;
+}
+
+.tech-actions {
+  flex-shrink: 0;
+  margin-left: var(--spacing-sm);
+  gap: 12rpx;
+}
+
+.tech-actions .btn-sm {
+  width: 120rpx;
+  height: 56rpx;
+  padding: 0;
+}

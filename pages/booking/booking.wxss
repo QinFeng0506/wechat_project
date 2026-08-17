@@ -347,6 +347,11 @@
   pointer-events: none;
 }
 
+.time-remaining {
+  margin-top: 4rpx;
+  color: var(--primary-dark);
+}
+
 /* ===== 备注 ===== */
 .remark-input {
   width: 100%;
@@ -378,6 +383,20 @@
 .order-total {
   padding-top: var(--spacing-sm);
   border-top: 1rpx solid var(--border);
+}
+
+.order-pay-tip {
+  margin-top: var(--spacing-sm);
+  background: rgba(224, 176, 96, 0.15);
+  border-radius: var(--radius-sm);
+  padding: 12rpx var(--spacing-sm);
+  text-align: center;
+}
+
+.order-pay-tip text {
+  font-size: var(--font-xs);
+  color: #B8862D;
+  line-height: 1.6;
 }
 
 /* ===== 底部操作栏 ===== */

@@ -1,0 +1,43 @@
+<!-- 技师管理 — 列表 -->
+<view class="page container">
+  <!-- 新增按钮 -->
+  <view class="btn-primary mb-md" bindtap="onAdd">
+    <text>＋ 新增技师</text>
+  </view>
+
+  <!-- 技师列表 -->
+  <view wx:if="{{technicians.length > 0}}">
+    <view class="tech-item card flex-row" wx:for="{{technicians}}" wx:key="id">
+      <!-- 头像 -->
+      <image class="tech-avatar" src="{{item.avatar}}" mode="aspectFill" />
+
+      <!-- 信息区 -->
+      <view class="tech-info flex-1">
+        <view class="flex-row">
+          <text class="text-md text-bold">{{item.name}}</text>
+          <text class="tech-title text-xs">{{item.title}}</text>
+          <text class="tech-off text-xs" wx:if="{{!item.isAvailable}}">已停用</text>
+        </view>
+        <text class="text-xs text-muted mt-xs block">从业{{item.experience}}年 · 评分{{item.rating}} · 服务{{item.serviceCount}}次</text>
+        <text class="text-xs text-secondary mt-xs block">💺 每时段可约 {{item.slotCount || 3}} 个位置</text>
+      </view>
+
+      <!-- 操作按钮 -->
+      <view class="tech-actions flex-col">
+        <view class="btn-sm btn-outline" bindtap="onEdit" data-id="{{item.id}}">
+          <text class="text-xs">编辑</text>
+        </view>
+        <view class="btn-sm btn-outline mt-xs" style="border-color:#E07B7B;color:#E07B7B;"
+              bindtap="onDelete" data-id="{{item.id}}">
+          <text class="text-xs">删除</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{technicians.length === 0}}">
+    <text class="empty-icon">👩‍🎨</text>
+    <text class="empty-text">暂无技师数据</text>
+  </view>
+</view>

@@ -3,6 +3,8 @@
  * 新增/编辑使用 wx.showModal 内联表单（content 设置 editable:true）
  */
 const cloud = require('../../../utils/cloud.js');
+const { guardAdmin } = require('../../../utils/guard.js');
+
 
 Page({
   data: {
@@ -10,6 +12,7 @@ Page({
   },
 
   async onShow() {
+    if (!guardAdmin()) return;
     await this.loadNotices();
   },
 
@@ -47,18 +50,17 @@ Page({
           success: (res2) => {
             if (res2.confirm && res2.content) {
               const newNotice = {
-                _id: 'nt_' + Date.now(),
                 title: title,
                 content: res2.content,
                 type: 'notice',
                 isTop: false,
-                isActive: true,
                 createTime: new Date().toISOString().slice(0, 10)
               };
-              // 追加到列表头部
-              const notices = [newNotice, ...this.data.notices];
-              this.setData({ notices });
-              wx.showToast({ title: '发布成功', icon: 'success' });
+              // 保存到本地/云端
+              cloud.adminSaveNotice(newNotice).then(() => {
+                wx.showToast({ title: '发布成功', icon: 'success' });
+                this.loadNotices();
+              });
             }
           }
         });
@@ -81,12 +83,11 @@ Page({
       confirmColor: '#D4A0A0',
       success: (res) => {
         if (res.confirm && res.content) {
-          const notices = this.data.notices.map(n => {
-            if (n._id === id) return { ...n, content: res.content };
-            return n;
+          // 保存到本地/云端（只覆盖正文，标题等保持不变）
+          cloud.adminSaveNotice({ _id: id, content: res.content }).then(() => {
+            wx.showToast({ title: '已保存', icon: 'success' });
+            this.loadNotices();
           });
-          this.setData({ notices });
-          wx.showToast({ title: '已保存', icon: 'success' });
         }
       }
     });
@@ -102,9 +103,10 @@ Page({
       confirmColor: '#E07B7B',
       success: (res) => {
         if (res.confirm) {
-          const notices = this.data.notices.filter(n => n._id !== id);
-          this.setData({ notices });
-          wx.showToast({ title: '已删除', icon: 'success' });
+          cloud.adminDeleteNotice(id).then(() => {
+            wx.showToast({ title: '已删除', icon: 'success' });
+            this.loadNotices();
+          });
         }
       }
     });

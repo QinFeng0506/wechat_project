@@ -41,6 +41,12 @@
     </view>
   </view>
 
+  <!-- 到店付款提示 -->
+  <view class="pay-card">
+    <text class="pay-card-title">💴 到店付款提示</text>
+    <text class="pay-card-text">预约成功！到店出示预约编号即可，到店付款（支持微信 / 支付宝 / 现金），无需线上预付。</text>
+  </view>
+
   <!-- 温馨提示 -->
   <view class="tips-card card">
     <text class="tips-title">📌 温馨提示</text>

@@ -165,3 +165,4 @@ const isCloud = () => !!(app.globalData.cloudReady && app.globalData.db);
 |------|---------|--------|
 | 2026-08-11 | 完成 25 页面代码框架 + PROJECT_PLAN.md | Claude |
 | 2026-08-12 | 从黑马记账APP迁移技能库至本项目 | Claude |
+| 2026-08-17 | 「我的」页面底部添加项目声明（个人展示用途，配合备案） | Claude |

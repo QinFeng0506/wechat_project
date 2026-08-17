@@ -6,20 +6,19 @@ Page({data:{
   allStyles:[],displayList:[],leftList:[],rightList:[],
   isSearchMode:false,searchKeyword:''
 },
-async onLoad(options){
+onLoad(options){
   if(options.subCategory)this.setData({activeSubCategory:options.subCategory});
-  await this.initData();
 },
-onShow(){this.refreshFavorites();},
+/** 每次显示都静默刷新（管理员增删款式后返回即可见），保留当前筛选 */
+onShow(){this.initData();},
 async initData(){
-  wx.showLoading({title:'加载中...'});
   try{this.setData({allStyles:await cloud.getStyles()});}
   catch(e){this.setData({allStyles:require('../../utils/data.js').nailStyles});}
   this.setData({subCategories:[
     {id:'all',name:'全部'},{id:'纯色',name:'纯色'},{id:'法式',name:'法式'},
     {id:'猫眼',name:'猫眼'},{id:'渐变',name:'渐变'},{id:'贴片',name:'贴片'},{id:'雕花',name:'雕花'}
   ]});
-  this.refreshFavorites();this.applyFilter();wx.hideLoading();
+  this.refreshFavorites();this.applyFilter();
 },
 onSubTap(e){const id=e.currentTarget.dataset.id;if(id===this.data.activeSubCategory)return;this.setData({activeSubCategory:id});this.applyFilter();},
 onSearchFocus(){this.setData({isSearchMode:true});},

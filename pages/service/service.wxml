@@ -5,6 +5,11 @@
     <text class="text-xs text-muted">共 {{items.length}} 项</text>
   </view>
 
+  <!-- 到店付款提示条 -->
+  <view class="pay-notice">
+    <text>💴 所有项目均为到店付款 · 支持微信 / 支付宝 / 现金</text>
+  </view>
+
   <view class="service-list">
     <view class="service-card" wx:for="{{items}}" wx:key="id">
       <view class="service-left">
